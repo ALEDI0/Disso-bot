@@ -10,21 +10,22 @@ client.login("OTYxNjQ1NDYzMDUwODA5NDY1.Yk8AIA.XQKzJngww_bohN4egvyR78U_NaI");
 
 client.on("guildMemberAdd", member => {
     var embed = new Discord.MessageEmbed()
-    .setAuthor({name: "**Dissociatore**"})
+    .setAuthor({name: "Dissociatore"})
     .setTitle("Ti diamo un caloroso BENVENUTO😊")
-    .setDescription(`Ma salve ${member.toString()} , benvenuto nel **DissoServer**! Ti aspettano amici e belle cose!😍`)
+    .setDescription(`Ma salve ${member.toString()}, benvenuto nel **DissoServer**! Ti aspettano amici e belle cose!😍`)
     .addField("Segui le mie live o piango😭", "Se lo farai ti amerò🥰")
     .setThumbnail("https://cdn-longterm.mee6.xyz/plugins/welcome/images/786011000674975755/b3e6c1bf392904eb6caad668b23fdeb929d1128227b8e5bfdce608b1d335d01e.gif")
     .setImage("https://cdn-longterm.mee6.xyz/plugins/welcome/images/786011000674975755/ef8e17d3acb3e52587423a8d99595cc28fc7136323b37ad769f643546d89fc10.gif")
     .setFooter({ text: "Sei un grande!"})
     .setColor("ORANGE")
-    client.channels.cache.get("954468073799319602").send({embeds: [embed]});        
+    client.channels.cache.get("786011792111304775").send({embeds: [embed]});        
 
 
 
 })
 
 client.on("ready", () => {
+    client.user.setActivity({ type: "WATCHING", name: `Dissociatore` })
     console.log("ONLINE");
 
     client.guilds.cache.forEach(guild => {
@@ -64,8 +65,8 @@ client.on("interactionCreate", interaction => {
         }
         var embed = new Discord.MessageEmbed()
         .setColor("GREEN")
-        .setTitle("GIOCHI")
-        .setDescription("Clicca sull'emoji per ottenere il tuo ruolo")
+        .setTitle("PERSONALE")
+        .setDescription("Scegli cosa ti rappresenta! Clicca sull'emoji per ottenere il tuo ruolo")
         .addField("Chill 😊", "** **" )
         .addField("Tossico 🤬", "** **" )
         .addField("Nerd 🤓", "** **")
@@ -75,6 +76,7 @@ client.on("interactionCreate", interaction => {
         .addField("Programmatore 💻", "** **")
         .addField("Gamer 🕹️", "** **")
         .addField("Disegnatore 🖌️", "** **")
+        .addField("Remove ❌", "Questo bottone serve per rimuovere i ruoli, in caso non facessero per te.")
         var button1 = new Discord.MessageButton()
             .setEmoji("😊")
             .setCustomId("chill")
@@ -111,6 +113,10 @@ client.on("interactionCreate", interaction => {
             .setEmoji("🖌️")
             .setCustomId("disegnatore")
             .setStyle("PRIMARY")
+            var buttonremove1 = new Discord.MessageButton()
+            .setEmoji("❌")
+            .setCustomId("remove3")
+            .setStyle("SECONDARY")
             var row = new Discord.MessageActionRow()
             .addComponents(button1)
             .addComponents(button2)
@@ -120,6 +126,7 @@ client.on("interactionCreate", interaction => {
             .addComponents(button5)
             .addComponents(button6)
             .addComponents(button7)
+            .addComponents(buttonremove1)
             interaction.reply({ embeds: [embed], components: [row, row1], })
     
     }
@@ -134,10 +141,11 @@ client.on("interactionCreate", interaction => {
             var embed = new Discord.MessageEmbed()
             .setColor("AQUA")
             .setTitle("GENERE")
-            .setDescription("Clicca sull'emoji per ottenere il tuo ruolo")
+            .setDescription("Qual è il tuo genere? Clicca sull’emoji per farti conoscere dalla community")
             .addField("Ragazzo ♂️", "** **",  false)
             .addField("Ragazza ♀️", "** **",  false)
             .addField("Non Binary ⚧", "** **", false)
+            .addField("Remove ❌", "Questo bottone serve per rimuovere i ruoli, in caso non facessero per te.")
             var button1 = new Discord.MessageButton()
             .setEmoji("♂️")
             .setCustomId("maschio")
@@ -150,10 +158,15 @@ client.on("interactionCreate", interaction => {
             .setEmoji("⚧")
             .setCustomId("lgbt")
             .setStyle("PRIMARY")
+            var buttonremove = new Discord.MessageButton()
+            .setEmoji("❌")
+            .setCustomId("remove2")
+            .setStyle("SECONDARY")
             var row = new Discord.MessageActionRow()
             .addComponents(button1)
             .addComponents(button2)
             .addComponents(button3)
+            .addComponents(buttonremove)
             interaction.reply({ embeds: [embed], components: [row], })
         }   
             
@@ -165,7 +178,7 @@ client.on("interactionCreate", interaction => {
             var embed = new Discord.MessageEmbed()
             .setColor("ORANGE")
             .setTitle("GIOCHI")
-            .setDescription("Clicca sull'emoji per ottenere il tuo ruolo")
+            .setDescription("Scegli i tuoi giochi per trovare persone con cui giocare! Clicca sull'emoji per ottenere il tuo ruolo")
             .addField("Minecraft ⛏️", "** **" )
             .addField("Valorant 🦇", "** **" )
             .addField("Rocket League 🚙", "** **")
@@ -174,9 +187,10 @@ client.on("interactionCreate", interaction => {
             .addField("Osu 🎵", "** **")
             .addField("Roblox 🧸", "** **")
             .addField("Among Us 🔴", "** **")
-            .addField("GTA V 🎖️", "** **")
+            .addField("GTA 5 🎖️", "** **")
             .addField("Genshin Impact 🎆", "** **")
             .addField("Phasmophobia 👻", "** **")
+            .addField("Remove ❌", "Questo bottone serve per rimuovere i ruoli, in caso non facessero per te.")
             var button1 = new Discord.MessageButton()
             .setEmoji("⛏️")
             .setCustomId("minecraft")
@@ -201,31 +215,30 @@ client.on("interactionCreate", interaction => {
             .setEmoji("🎵")
             .setCustomId("osu")
             .setStyle("PRIMARY")
-            var button6 = new Discord.MessageButton()
+            var button7 = new Discord.MessageButton()
             .setEmoji("🧸")
             .setCustomId("roblox")
             .setStyle("PRIMARY")
-            var button6 = new Discord.MessageButton()
+            var button8 = new Discord.MessageButton()
             .setEmoji("🔴")
             .setCustomId("among us")
             .setStyle("PRIMARY")
-            var button7 = new Discord.MessageButton()
+            var button9 = new Discord.MessageButton()
             .setEmoji("🎖️")
             .setCustomId("gta 5")
             .setStyle("PRIMARY")
-            var button8 = new Discord.MessageButton()
+            var button10 = new Discord.MessageButton()
             .setEmoji("🎆")
             .setCustomId("genghin impact")
             .setStyle("PRIMARY")
-            var button9 = new Discord.MessageButton()
+            var button11 = new Discord.MessageButton()
             .setEmoji("👻")
             .setCustomId("phasmofobia")
             .setStyle("PRIMARY")
-            var button10 = new Discord.MessageButton()
-            .setEmoji("👑")
-            .setCustomId("clash royale")
-            .setStyle("PRIMARY")
-           
+            var buttonremove2 = new Discord.MessageButton()
+            .setEmoji("❌")
+            .setCustomId("remove1")
+            .setStyle("SECONDARY")
             var row = new Discord.MessageActionRow()
             .addComponents(button1)
             .addComponents(button2)
@@ -238,7 +251,10 @@ client.on("interactionCreate", interaction => {
             .addComponents(button8)
             .addComponents(button9)
             .addComponents(button10)
-            interaction.reply({ embeds: [embed], components: [row, row1], })
+            var row2 = new Discord.MessageActionRow()
+            .addComponents(button11)
+            .addComponents(buttonremove2)
+            interaction.reply({ embeds: [embed], components: [row, row1, row2], })
         }   
             
             
@@ -280,7 +296,7 @@ client.on("interactionCreate", interaction => {
 client.on("interactionCreate", interaction => {
     
     if (interaction.customId == "maschio") {           //genere            //genere
-        const maschio = interaction.guild.roles.cache.get("967442587696893952");
+        const maschio = interaction.guild.roles.cache.get("967858953960701983");
         interaction.member.roles.add(maschio);
         var embed = new Discord.MessageEmbed()
         .setColor("GREEN")
@@ -289,7 +305,7 @@ client.on("interactionCreate", interaction => {
     }
     if (interaction.customId == "femmina") {
         
-        const maschio = interaction.guild.roles.cache.get("967442587696893952");
+        const maschio = interaction.guild.roles.cache.get("967858978312831077");
         interaction.member.roles.add(maschio);
         var embed = new Discord.MessageEmbed()
         .setColor("GREEN")
@@ -299,7 +315,7 @@ client.on("interactionCreate", interaction => {
     }
     if (interaction.customId == "lgbt") {
         
-        const maschio = interaction.guild.roles.cache.get("967442587696893952");
+        const maschio = interaction.guild.roles.cache.get("967857801017827338");
         interaction.member.roles.add(maschio);
         var embed = new Discord.MessageEmbed()
         .setColor("GREEN")
@@ -311,7 +327,7 @@ client.on("interactionCreate", interaction => {
     
     
     if (interaction.customId == "minecraft") {                         //giochi                  //giochi 
-        const maschio = interaction.guild.roles.cache.get("967442587696893952");
+        const maschio = interaction.guild.roles.cache.get("967857801139474432");
         interaction.member.roles.add(maschio);
         var embed = new Discord.MessageEmbed()
         .setColor("GREEN")
@@ -319,7 +335,7 @@ client.on("interactionCreate", interaction => {
         interaction.reply({ embeds: [embed], ephemeral: true })
     }       
     if (interaction.customId == "valorant") {                               //valorant              //valorant
-        const maschio = interaction.guild.roles.cache.get("967442587696893952");
+        const maschio = interaction.guild.roles.cache.get("967858136675401748");
         interaction.member.roles.add(maschio);
         var embed = new Discord.MessageEmbed()
         .setColor("GREEN")
@@ -327,7 +343,7 @@ client.on("interactionCreate", interaction => {
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
     if (interaction.customId == "league of legends") {                  //league of legends         //league of legends
-        const maschio = interaction.guild.roles.cache.get("967442587696893952");
+        const maschio = interaction.guild.roles.cache.get("968072502536462366");
         interaction.member.roles.add(maschio);
         var embed = new Discord.MessageEmbed()
         .setColor("GREEN")
@@ -335,7 +351,7 @@ client.on("interactionCreate", interaction => {
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
     if (interaction.customId == "Rocket League") {                          //Rocket League             //Rocket League
-        const maschio = interaction.guild.roles.cache.get("967442587696893952");
+        const maschio = interaction.guild.roles.cache.get("967857801315618876");
         interaction.member.roles.add(maschio);
         var embed = new Discord.MessageEmbed()
         .setColor("GREEN")
@@ -343,7 +359,7 @@ client.on("interactionCreate", interaction => {
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
     if (interaction.customId == "fortnite") {                   //fortnite            //fortnite                      //fortnite
-        const maschio = interaction.guild.roles.cache.get("967442587696893952");
+        const maschio = interaction.guild.roles.cache.get("967858561378037842");
         interaction.member.roles.add(maschio);
         var embed = new Discord.MessageEmbed()
         .setColor("GREEN")
@@ -351,7 +367,7 @@ client.on("interactionCreate", interaction => {
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
     if (interaction.customId == "osu") {                        //osu                   //osu           //osu
-        const maschio = interaction.guild.roles.cache.get("967442587696893952");
+        const maschio = interaction.guild.roles.cache.get("967858490813087795");
         interaction.member.roles.add(maschio);
         var embed = new Discord.MessageEmbed()
         .setColor("GREEN")
@@ -359,7 +375,7 @@ client.on("interactionCreate", interaction => {
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
     if (interaction.customId == "roblox") {                     //roblox            //roblox            //roblox
-        const maschio = interaction.guild.roles.cache.get("967442587696893952");
+        const maschio = interaction.guild.roles.cache.get("967858566113423400");
         interaction.member.roles.add(maschio);
         var embed = new Discord.MessageEmbed()
         .setColor("GREEN")
@@ -367,7 +383,7 @@ client.on("interactionCreate", interaction => {
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
     if (interaction.customId == "gta 5") {                            //gta 5                      //gta 5              //gta 5
-        const maschio = interaction.guild.roles.cache.get("967442587696893952");
+        const maschio = interaction.guild.roles.cache.get("967858132053282826");
         interaction.member.roles.add(maschio);
         var embed = new Discord.MessageEmbed()
         .setColor("GREEN")
@@ -375,7 +391,7 @@ client.on("interactionCreate", interaction => {
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
     if (interaction.customId == "genghin impact") {             //genghin impact           //genghin impact       //genghin impact
-        const maschio = interaction.guild.roles.cache.get("967442587696893952");
+        const maschio = interaction.guild.roles.cache.get("967858140987146290");
         interaction.member.roles.add(maschio);
         var embed = new Discord.MessageEmbed()
         .setColor("GREEN")
@@ -384,7 +400,7 @@ client.on("interactionCreate", interaction => {
     }
    
     if (interaction.customId == "phasmofobia") {                                   //phasmofobia               //phasmofobia
-        const maschio = interaction.guild.roles.cache.get("967442587696893952");
+        const maschio = interaction.guild.roles.cache.get("968069017157918760");
         interaction.member.roles.add(maschio);
         var embed = new Discord.MessageEmbed()
         .setColor("GREEN")
@@ -392,7 +408,7 @@ client.on("interactionCreate", interaction => {
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
     if (interaction.customId == "clash royale") {                              //clash royale              //clash royale
-        const maschio = interaction.guild.roles.cache.get("967442587696893952");
+        const maschio = interaction.guild.roles.cache.get("967858144288051240");
         interaction.member.roles.add(maschio);
         var embed = new Discord.MessageEmbed()
         .setColor("GREEN")
@@ -400,7 +416,7 @@ client.on("interactionCreate", interaction => {
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
     if (interaction.customId == "among us") {                           //among us                           //among us
-        const maschio = interaction.guild.roles.cache.get("967442587696893952");
+        const maschio = interaction.guild.roles.cache.get("967858487432466482");
         interaction.member.roles.add(maschio);
         var embed = new Discord.MessageEmbed()
         .setColor("GREEN")
@@ -411,7 +427,7 @@ client.on("interactionCreate", interaction => {
    
    
     if (interaction.customId == "chill") {                           //chill                          //chill
-        const maschio = interaction.guild.roles.cache.get("967442587696893952");
+        const maschio = interaction.guild.roles.cache.get("968069371454951464");
         interaction.member.roles.add(maschio);
         var embed = new Discord.MessageEmbed()
         .setColor("GREEN")
@@ -419,7 +435,7 @@ client.on("interactionCreate", interaction => {
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
     if (interaction.customId == "tossico") {                           //tossico                          //tossico
-        const maschio = interaction.guild.roles.cache.get("967442587696893952");
+        const maschio = interaction.guild.roles.cache.get("967857778121142332");
         interaction.member.roles.add(maschio);
         var embed = new Discord.MessageEmbed()
         .setColor("GREEN")
@@ -427,7 +443,7 @@ client.on("interactionCreate", interaction => {
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
     if (interaction.customId == "nerd") {                           //nerd                           //nerd
-        const maschio = interaction.guild.roles.cache.get("967442587696893952");
+        const maschio = interaction.guild.roles.cache.get("967857779127754833");
         interaction.member.roles.add(maschio);
         var embed = new Discord.MessageEmbed()
         .setColor("GREEN")
@@ -435,7 +451,7 @@ client.on("interactionCreate", interaction => {
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
     if (interaction.customId == "lgbtq") {                           //lgbtq                          //lgbtq
-        const maschio = interaction.guild.roles.cache.get("967442587696893952");
+        const maschio = interaction.guild.roles.cache.get("967857798950043750");
         interaction.member.roles.add(maschio);
         var embed = new Discord.MessageEmbed()
         .setColor("GREEN")
@@ -443,7 +459,7 @@ client.on("interactionCreate", interaction => {
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
     if (interaction.customId == "clown") {                           //clown                         //clown
-        const maschio = interaction.guild.roles.cache.get("967442587696893952");
+        const maschio = interaction.guild.roles.cache.get("967857779287162882");
         interaction.member.roles.add(maschio);
         var embed = new Discord.MessageEmbed()
         .setColor("GREEN")
@@ -451,7 +467,7 @@ client.on("interactionCreate", interaction => {
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
     if (interaction.customId == "otaku") {                           //otaku                           //otaku
-        const maschio = interaction.guild.roles.cache.get("967442587696893952");
+        const maschio = interaction.guild.roles.cache.get("967857797612073061");
         interaction.member.roles.add(maschio);
         var embed = new Discord.MessageEmbed()
         .setColor("GREEN")
@@ -459,7 +475,7 @@ client.on("interactionCreate", interaction => {
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
     if (interaction.customId == "programmatore") {                           //programmatore                           //programmatore
-        const maschio = interaction.guild.roles.cache.get("967442587696893952");
+        const maschio = interaction.guild.roles.cache.get("967857797792403496");
         interaction.member.roles.add(maschio);
         var embed = new Discord.MessageEmbed()
         .setColor("GREEN")
@@ -467,7 +483,7 @@ client.on("interactionCreate", interaction => {
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
     if (interaction.customId == "gamer") {                           //gamer                           //gamer
-        const maschio = interaction.guild.roles.cache.get("967442587696893952");
+        const maschio = interaction.guild.roles.cache.get("967857798807449600");
         interaction.member.roles.add(maschio);
         var embed = new Discord.MessageEmbed()
         .setColor("GREEN")
@@ -475,7 +491,7 @@ client.on("interactionCreate", interaction => {
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
     if (interaction.customId == "disegnatore") {                           //disegnatore                           //disegnatore
-        const maschio = interaction.guild.roles.cache.get("967442587696893952");
+        const maschio = interaction.guild.roles.cache.get("967857775277391974");
         interaction.member.roles.add(maschio);
         var embed = new Discord.MessageEmbed()
         .setColor("GREEN")
@@ -483,12 +499,90 @@ client.on("interactionCreate", interaction => {
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
     
+    if (interaction.customId == "remove1") {                           //remove                       //remove
+        const maschio = interaction.guild.roles.cache.get("967857801139474432");
+        const maschio1 = interaction.guild.roles.cache.get("967858136675401748");
+        const maschio2 = interaction.guild.roles.cache.get("967857801315618876");
+        const maschio3 = interaction.guild.roles.cache.get("967858132053282826");
+        const maschio4 = interaction.guild.roles.cache.get("967858140987146290");
+        const maschio5 = interaction.guild.roles.cache.get("967858487432466482");
+        const maschio6 = interaction.guild.roles.cache.get("967858490813087795");
+        const maschio7 = interaction.guild.roles.cache.get("967858561378037842");
+        const maschio8 = interaction.guild.roles.cache.get("967858566113423400");
+        const maschio9 = interaction.guild.roles.cache.get("968069017157918760");
+        const maschio10 = interaction.guild.roles.cache.get("968072502536462366");
+        interaction.member.roles.remove(maschio);
+        interaction.member.roles.remove(maschio1);
+        interaction.member.roles.remove(maschio2);
+        interaction.member.roles.remove(maschio3);
+        interaction.member.roles.remove(maschio4);
+        interaction.member.roles.remove(maschio5);
+        interaction.member.roles.remove(maschio6);
+        interaction.member.roles.remove(maschio7);
+        interaction.member.roles.remove(maschio8);
+        interaction.member.roles.remove(maschio9);
+        interaction.member.roles.remove(maschio10);
+        var embed = new Discord.MessageEmbed()
+        .setColor("RED")
+        .setTitle("I ruoli sono stati tolti con successo!")
+        interaction.reply({ embeds: [embed], ephemeral: true })
+    }
+    
+    
+    
+    if (interaction.customId == "remove2") {                           //remove                       //remove
+        const maschio = interaction.guild.roles.cache.get("967858978312831077");
+        const maschio1 = interaction.guild.roles.cache.get("967858953960701983");
+        const maschio2 = interaction.guild.roles.cache.get("967857801017827338");
+        
+        interaction.member.roles.remove(maschio);
+        interaction.member.roles.remove(maschio1);
+        interaction.member.roles.remove(maschio2);
+        
+        var embed = new Discord.MessageEmbed()
+        .setColor("RED")
+        .setTitle("I ruoli sono stati tolti con successo!")
+        interaction.reply({ embeds: [embed], ephemeral: true })
+    }
+    
+    
+    
+    
+    if (interaction.customId == "remove3") {                           //remove                       //remove
+        const maschio = interaction.guild.roles.cache.get("967857775277391974");
+        const maschio1 = interaction.guild.roles.cache.get("967857778121142332");
+        const maschio2 = interaction.guild.roles.cache.get("967857748299624488");
+        const maschio3 = interaction.guild.roles.cache.get("967857779127754833");
+        const maschio4 = interaction.guild.roles.cache.get("967857779287162882");
+        const maschio5 = interaction.guild.roles.cache.get("968069371454951464");
+        const maschio6 = interaction.guild.roles.cache.get("967857797612073061");
+        const maschio7 = interaction.guild.roles.cache.get("967857797792403496");
+        const maschio8 = interaction.guild.roles.cache.get("967857798807449600");
+        const maschio9 = interaction.guild.roles.cache.get("967857798950043750");
+        interaction.member.roles.remove(maschio);
+        interaction.member.roles.remove(maschio1);
+        interaction.member.roles.remove(maschio2);
+        interaction.member.roles.remove(maschio3);
+        interaction.member.roles.remove(maschio4);
+        interaction.member.roles.remove(maschio5);
+        interaction.member.roles.remove(maschio6);
+        interaction.member.roles.remove(maschio7);
+        interaction.member.roles.remove(maschio8);
+        interaction.member.roles.remove(maschio9);
+        var embed = new Discord.MessageEmbed()
+        .setColor("RED")
+        .setTitle("I ruoli sono stati tolti con successo!")
+        interaction.reply({ embeds: [embed], ephemeral: true })
+    }
+    
+    
+    
     
     
     
     if (interaction.customId == "verifypanel") {
-        const role = interaction.guild.roles.cache.get("924755866593394692");
-        const role1 = interaction.guild.roles.cache.get("967442587696893952");
+        const role = interaction.guild.roles.cache.get("786012564370489344");
+        const role1 = interaction.guild.roles.cache.get("892512109664043069");
        
         interaction.member.roles.add(role);
         interaction.member.roles.add(role1);
