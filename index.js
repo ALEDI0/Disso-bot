@@ -271,26 +271,21 @@ client.on("interactionCreate", interaction => {
          if (!interaction.member.permissions.has("BAN_MEMBERS")) {
          return interaction.reply({ content: "Non hai il permesso di utilizzare questo comando", ephemeral: true })
             }
-        
             var button1 = new Discord.MessageButton()
             .setLabel("Verify")
             .setCustomId("verifypanel")
             .setStyle("SUCCESS")
-            
             var button2 = new Discord.MessageButton()
             .setLabel("Perché?")
             .setCustomId("whybuttonpanel")
             .setStyle("PRIMARY")
-            
             var row = new Discord.MessageActionRow()
             .addComponents(button1)
             .addComponents(button2)
-            
             var embed = new Discord.MessageEmbed()
             .setTitle("CLICCA QUA PER VERIFICARTI")
             .setColor("ORANGE")
             .setDescription("Questo è il server ufficiale di Dissociatore ma, per usarlo a piena funzionalità, serve verificarsi! Per maggiori informazioni clicca **_Perché?_**")
-            
             interaction.reply({ embeds: [embed], components: [row], })
        
         
@@ -553,15 +548,14 @@ client.on("interactionCreate", interaction => {
     
     if (interaction.customId == "remove3") {                           //remove                       //remove
         const maschio = interaction.guild.roles.cache.get("967857775277391974");
-        const maschio1 = interaction.guild.roles.cache.get("967857778121142332");
-        const maschio2 = interaction.guild.roles.cache.get("967857748299624488");
-        const maschio3 = interaction.guild.roles.cache.get("967857779127754833");
-        const maschio4 = interaction.guild.roles.cache.get("967857779287162882");
+        const maschio1 = interaction.guild.roles.cache.get("967857779287162882");
+        const maschio2 = interaction.guild.roles.cache.get("967857798950043750");
+        const maschio3 = interaction.guild.roles.cache.get("967857797612073061");
+        const maschio4 = interaction.guild.roles.cache.get("967857798807449600");
         const maschio5 = interaction.guild.roles.cache.get("968069371454951464");
-        const maschio6 = interaction.guild.roles.cache.get("967857797612073061");
-        const maschio7 = interaction.guild.roles.cache.get("967857797792403496");
-        const maschio8 = interaction.guild.roles.cache.get("967857798807449600");
-        const maschio9 = interaction.guild.roles.cache.get("967857798950043750");
+        const maschio6 = interaction.guild.roles.cache.get("967857779127754833");
+        const maschio7 = interaction.guild.roles.cache.get("967857778121142332");
+        const maschio8 = interaction.guild.roles.cache.get("967857797792403496");
         interaction.member.roles.remove(maschio);
         interaction.member.roles.remove(maschio1);
         interaction.member.roles.remove(maschio2);
@@ -571,8 +565,7 @@ client.on("interactionCreate", interaction => {
         interaction.member.roles.remove(maschio6);
         interaction.member.roles.remove(maschio7);
         interaction.member.roles.remove(maschio8);
-        interaction.member.roles.remove(maschio9);
-        var embed = new Discord.MessageEmbed()
+       var embed = new Discord.MessageEmbed()
         .setColor("RED")
         .setTitle("I ruoli sono stati tolti con successo!")
         interaction.reply({ embeds: [embed], ephemeral: true })
