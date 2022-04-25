@@ -130,7 +130,7 @@ client.on("interactionCreate", interaction => {
             var row2 = new Discord.MessageActionRow()
             .addComponents(button9)
             .addComponents(buttonremove1)
-            interaction.reply({ embeds: [embed], components: [row, row1], })
+            interaction.reply({ embeds: [embed], components: [row, row1, row3], })
     
     }
     
@@ -589,7 +589,6 @@ client.on("interactionCreate", interaction => {
         
         interaction.member.roles.add(role);
         interaction.member.roles.add(role1);
-        
         var embed = new Discord.MessageEmbed()
         .setColor("GREEN")
         .setTitle("Ti sei verificato con successo!")
