@@ -586,7 +586,7 @@ client.on("interactionCreate", interaction => {
     if (interaction.customId == "verifypanel") {
         const role = interaction.guild.roles.cache.get("786012564370489344");
         const role1 = interaction.guild.roles.cache.get("892512109664043069");
-       
+        
         interaction.member.roles.add(role);
         interaction.member.roles.add(role1);
         
