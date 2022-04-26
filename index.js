@@ -45,6 +45,24 @@ client.on("ready", () => {
             name: "rrpanel2",
             description: "Pannello personalità rr"
         })
+        guild.commands.create({
+            name: "kick",
+            description: "Kickare un utente",
+            options: [
+                {
+                    name: "user",
+                    description: "L'utente da espellere",
+                    type: "USER",
+                    required: true
+                },
+                {
+                    name: "reason",
+                    description: "Motivazione",
+                    type: "STRING",
+                    required: false
+                }
+            ]
+        })
     })
 
 
@@ -58,7 +76,32 @@ client.on("ready", () => {
 
 client.on("interactionCreate", interaction => {
         if (!interaction.isCommand()) return
+        
+        if (interaction.commandName == "kick") {
+            if (!interaction.member.permissions.has("BAN_MEMBERS")) {
+                return interaction.reply({ content: "Non hai il permesso di utilizzare questo comando", ephemeral: true })
+            }
     
+            var utente = interaction.options.getUser("user")
+            var reason = interaction.options.getString("reason") || "Nessun motivo"
+    
+            var member = interaction.guild.members.cache.get(utente.id)
+            if (!member?.kickable) {
+                return interaction.reply({ content: "Non posso kickare questo utente", ephemeral: true })
+            }
+    
+            member.kick()
+    
+            var embed = new Discord.MessageEmbed()
+                .setColor("RED")
+                .setTitle("Utente kickato")
+                .setThumbnail(utente.displayAvatarURL())
+                .addField("User", utente.toString())
+                .addField("Reason", reason)
+    
+            interaction.reply({ embeds: [embed] })
+        }
+        
         if (interaction.commandName == "rrpanel2") {
         if (!interaction.member.permissions.has("BAN_MEMBERS")) {
             return interaction.reply({ content: "Non hai il permesso di utilizzare questo comando", ephemeral: true })
