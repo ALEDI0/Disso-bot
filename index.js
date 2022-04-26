@@ -20,8 +20,6 @@ client.on("guildMemberAdd", member => {
     .setColor("ORANGE")
     client.channels.cache.get("786011792111304775").send({embeds: [embed]});        
 
-
-
 })
 
 client.on("ready", () => {
@@ -63,43 +61,97 @@ client.on("ready", () => {
                 }
             ]
         })
+        guild.commands.create({
+            name: "poll",
+            description: "crea un poll",
+            options: [
+                {
+                    name: "title",
+                    description: "Il titolo del tuo poll",
+                    type: "STRING",
+                    required: true
+                },
+                {
+                    name: "option1",
+                    description: "L'opzione 1 per il tuo poll",
+                    type: "STRING",
+                    required: false
+                },
+                {
+                    name: "option2",
+                    description: "L'opzione 2 per il tuo poll",
+                    type: "STRING",
+                    required: false
+                },
+                {
+                    name: "option3",
+                    description: "L'opzione 2 per il tuo poll",
+                    type: "STRING",
+                    required: false
+                },
+                {
+                    name: "option4",
+                    description: "L'opzione 2 per il tuo poll",
+                    type: "STRING",
+                    required: false
+                }   
+            
+            
+            
+            
+            ]
+        })
+    
+    
+    
     })
-
-
-
-
-
-
-
 
 })
 
 client.on("interactionCreate", interaction => {
         if (!interaction.isCommand()) return
         
-        if (interaction.commandName == "kick") {
+        if (interaction.commandName == "poll") {
+            if (!interaction.member.permissions.has("ADMINISTRATOR")) {
+                return interaction.reply({ content: "Non hai il permesso di utilizzare questo comando", ephemeral: true })
+            }
+            var option1 = interaction.options.getString("option1")
+            var option2 = interaction.options.getString("option2")
+            var option3 = interaction.options.getString("option3")
+            var option4 = interaction.options.getString("option4")
+            var title = interaction.options.getString("title")
+            var embed = new Discord.MessageEmbed()
+                .setColor("ORANGE")
+                .setTitle("Domanda")
+                .setDescription(title)
+                .addField("1️⃣"+ " " + option1, "** **" )
+                .addField("2️⃣"+ " " + option2, "** **")
+                .addField("3️⃣"+ " " + option3, "** **")
+                .addField("4️⃣"+ " " + option4, "** **")
+                interaction.reply({ embeds: [embed] })
+               
+            }
+       
+       
+        
+            if (interaction.commandName == "kick") {
             if (!interaction.member.permissions.has("BAN_MEMBERS")) {
                 return interaction.reply({ content: "Non hai il permesso di utilizzare questo comando", ephemeral: true })
             }
-    
             var utente = interaction.options.getUser("user")
             var reason = interaction.options.getString("reason") || "Nessun motivo"
-    
             var member = interaction.guild.members.cache.get(utente.id)
             if (!member?.kickable) {
                 return interaction.reply({ content: "Non posso kickare questo utente", ephemeral: true })
             }
-    
-            member.kick()
-    
-            var embed = new Discord.MessageEmbed()
+                member.kick()
+                var embed = new Discord.MessageEmbed()
                 .setColor("RED")
                 .setTitle("Utente kickato")
                 .setThumbnail(utente.displayAvatarURL())
                 .addField("User", utente.toString())
                 .addField("Reason", reason)
-    
-            interaction.reply({ embeds: [embed] })
+                interaction.reply({ embeds: [embed] })
         }
         
         if (interaction.commandName == "rrpanel2") {
@@ -302,13 +354,7 @@ client.on("interactionCreate", interaction => {
             .addComponents(buttonremove2)
             interaction.reply({ embeds: [embed], components: [row, row1, row2], })
         }   
-            
-            
-        
-        
-        
-        
-        
+         
         
         if (interaction.commandName == "verifypanel") {
          if (!interaction.member.permissions.has("BAN_MEMBERS")) {
@@ -332,7 +378,7 @@ client.on("interactionCreate", interaction => {
             interaction.reply({ embeds: [embed], components: [row], })
        
         
-    }
+        }
 })
 client.on("interactionCreate", interaction => {
     
@@ -364,9 +410,6 @@ client.on("interactionCreate", interaction => {
         
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
-    
-    
-    
     if (interaction.customId == "minecraft") {                         //giochi                  //giochi 
         const maschio = interaction.guild.roles.cache.get("967857801139474432");
         interaction.member.roles.add(maschio);
@@ -464,9 +507,6 @@ client.on("interactionCreate", interaction => {
         .setTitle("Hai ottenuto il tuo ruolo con successo!")
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
-   
-   
-   
     if (interaction.customId == "chill") {                           //chill                          //chill
         const maschio = interaction.guild.roles.cache.get("968069371454951464");
         interaction.member.roles.add(maschio);
@@ -575,20 +615,14 @@ client.on("interactionCreate", interaction => {
         const maschio = interaction.guild.roles.cache.get("967858978312831077");
         const maschio1 = interaction.guild.roles.cache.get("967858953960701983");
         const maschio2 = interaction.guild.roles.cache.get("967857801017827338");
-        
         interaction.member.roles.remove(maschio);
         interaction.member.roles.remove(maschio1);
         interaction.member.roles.remove(maschio2);
-        
         var embed = new Discord.MessageEmbed()
         .setColor("RED")
         .setTitle("I ruoli sono stati tolti con successo!")
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
-    
-    
-    
-    
     if (interaction.customId == "remove3") {                           //remove                       //remove
         const maschio = interaction.guild.roles.cache.get("967857775277391974");
         const maschio1 = interaction.guild.roles.cache.get("967857779287162882");
@@ -613,12 +647,6 @@ client.on("interactionCreate", interaction => {
         .setTitle("I ruoli sono stati tolti con successo!")
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
-    
-    
-    
-    
-    
-    
     if (interaction.customId == "verifypanel") {
         const role = interaction.guild.roles.cache.get("786012564370489344");
         const role1 = interaction.guild.roles.cache.get("892512109664043069");
@@ -632,15 +660,11 @@ client.on("interactionCreate", interaction => {
         
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
-
-
     if (interaction.customId == "whybuttonpanel") {
-    
         var embed = new Discord.MessageEmbed()
         .setColor("RED")
         .setTitle("Perché devo verificarmi?")
         .setDescription("E' necessario verificarti per riuscire ad accedere a tutte le funzionalità del server, questo passaggio serve per prevenire eventuali raid o complicanze da parte degli utenti.")
-        
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
 
