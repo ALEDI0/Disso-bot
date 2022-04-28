@@ -96,22 +96,16 @@ client.on("ready", () => {
                     required: false
                 }   
             
-            
-            
-            
             ]
         })
-    
-    
-    
+      
     })
 
 })
 
 client.on("interactionCreate", interaction => {
         if (!interaction.isCommand()) return
-        
-        if (interaction.commandName == "poll") {
+         if (interaction.commandName == "poll") {
             if (!interaction.member.permissions.has("ADMINISTRATOR")) {
                 return interaction.reply({ content: "Non hai il permesso di utilizzare questo comando", ephemeral: true })
             }
@@ -124,16 +118,19 @@ client.on("interactionCreate", interaction => {
                 .setColor("ORANGE")
                 .setTitle("Domanda")
                 .setDescription(title)
-                .addField("1️⃣"+ " " + option1, "** **" )
-                .addField("2️⃣"+ " " + option2, "** **")
-                .addField("3️⃣"+ " " + option3, "** **")
-                .addField("4️⃣"+ " " + option4, "** **")
+                .setThumbnail("https://cdn.discordapp.com/attachments/959112377687748628/968913031268548668/zenitsu.png")
+                .addField("1️⃣"+ " " + option1 , "** **" )
+                .addField("2️⃣"+ " " + option2 , "** **")
+                .addField("3️⃣"+ " " + option3 , "** **")
+                .addField("4️⃣"+ " " + option4 , "** **")
+                .setFooter({ text: "Il sondaggio è stato avviato!"})
                 interaction.reply({ embeds: [embed] })
-               
-            }
+                .then(embedMessage => {
+                    
+                   interaction.embedMessage.react("👎");
+                })
+                }
        
-       
-        
             if (interaction.commandName == "kick") {
             if (!interaction.member.permissions.has("BAN_MEMBERS")) {
                 return interaction.reply({ content: "Non hai il permesso di utilizzare questo comando", ephemeral: true })
@@ -227,7 +224,7 @@ client.on("interactionCreate", interaction => {
             .addComponents(buttonremove1)
             interaction.reply({ embeds: [embed], components: [row, row1, row3], })
     
-    }
+        }
     
     
     
@@ -670,9 +667,3 @@ client.on("interactionCreate", interaction => {
 
 
 })
-
-
-
-
-
-
