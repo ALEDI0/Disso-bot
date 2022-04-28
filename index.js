@@ -20,6 +20,12 @@ client.on("guildMemberAdd", member => {
     .setColor("ORANGE")
     client.channels.cache.get("786011792111304775").send({embeds: [embed]});        
 
+    
+        
+   
+   
+
+
 })
 
 client.on("ready", () => {
@@ -96,16 +102,22 @@ client.on("ready", () => {
                     required: false
                 }   
             
+            
+            
+            
             ]
         })
-      
+       
+    
+    
     })
 
 })
 
 client.on("interactionCreate", interaction => {
         if (!interaction.isCommand()) return
-         if (interaction.commandName == "poll") {
+        
+        if (interaction.commandName == "poll") {
             if (!interaction.member.permissions.has("ADMINISTRATOR")) {
                 return interaction.reply({ content: "Non hai il permesso di utilizzare questo comando", ephemeral: true })
             }
@@ -224,7 +236,7 @@ client.on("interactionCreate", interaction => {
             .addComponents(buttonremove1)
             interaction.reply({ embeds: [embed], components: [row, row1, row3], })
     
-        }
+    }
     
     
     
