@@ -136,6 +136,7 @@ client.on("ready", () => {
 client.on("interactionCreate", interaction => {
         if (!interaction.isCommand()) return
         
+
         if (interaction.commandName == "timeout") {
             if (!interaction.member.permissions.has("ADMINISTRATOR")) {
                 return interaction.reply({ content: "Non hai il permesso di utilizzare questo comando", ephemeral: true })
@@ -159,6 +160,7 @@ client.on("interactionCreate", interaction => {
                 client.channels.cache.get("968593581310869555").send({embeds: [embed]})
         
         }
+
 
 
 
@@ -725,6 +727,7 @@ client.on("interactionCreate", interaction => {
 
 })
 
+
 client.on('messageCreate', message => {
     if(message.content === '-join') {
         if (!message.member.permissions.has('BAN_MEMBERS')) {
@@ -994,3 +997,4 @@ distube.on("playSong", (queue, song) => {
 distube.on("searchNoResult", (message, query) => {
     message.channel.send("Canzone non trovata")
 })
+
