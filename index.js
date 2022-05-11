@@ -64,6 +64,10 @@ client.on("ready", () => {
             ]
         })
         guild.commands.create({
+            name: "ping",
+            description: "Guarda il ping del bot"
+        })
+            guild.commands.create({
             name: "poll",
             description: "crea un poll",
             options: [
@@ -127,7 +131,19 @@ client.on("ready", () => {
                 }
             ]
         })
-    
+        guild.commands.create({
+            name: "suggest",
+            description: "Fai una suggest!",
+            options: [
+                {
+                    name: "suggestion",
+                    description: "Scrivi cosa conterrà la tua suggestion",
+                    type: "STRING",
+                    required: true
+                }
+               
+            ]
+        })
     
     })
 
@@ -135,9 +151,42 @@ client.on("ready", () => {
 
 client.on("interactionCreate", interaction => {
         if (!interaction.isCommand()) return
+        if (interaction.commandName == "ping") {
+            var embed = new Discord.MessageEmbed()
+            .setTitle("Ping del bot")
+            .setDescription("Ecco il ping del bot")
+            .setColor("ORANGE")
+            .setThumbnail("https://cdn.discordapp.com/avatars/961645463050809465/36a963135aa5c645b865ef3609f8f8f8.png?size=1024")
+            .addField("Ping", `${client.ws.ping}ms`)
+            .setTimestamp()
+         interaction.reply({ embeds: [embed], ephemeral: true })
+        }
+            if (interaction.commandName == "suggest") {
+            let suggestion = interaction.options.getString("suggestion")
+            
+            var embed = new Discord.MessageEmbed()
+            .setTitle(`Nuova suggest da approvare`)
+            .setDescription("Scegli se accettare questa suggest o rifiutarla")
+            .setColor("ORANGE")
+            .addField("Suggest:", suggestion)
+            .setTimestamp()
+            var button1 = new Discord.MessageButton()
+            .setLabel("Conferma")
+            .setStyle("SUCCESS")
+            .setCustomId("Confermabutton")
+            var button2 = new Discord.MessageButton()
+            .setLabel("Rifiuta")
+            .setStyle("DANGER")
+            .setCustomId("Rifiutabutton")
+            var row = new Discord.MessageActionRow()
+            .addComponents(button1)
+            .addComponents(button2)
+            client.channels.cache.get("965703200437067816").send({embeds: [embed], components: [row]})
+            client.channels.cache.get("965703200437067816").send("<@609310540686426141>")
+            interaction.reply({ content: "La tua richiesta è stata inoltrata", ephemeral: true})
         
-
-        if (interaction.commandName == "timeout") {
+        }
+            if (interaction.commandName == "timeout") {
             if (!interaction.member.permissions.has("ADMINISTRATOR")) {
                 return interaction.reply({ content: "Non hai il permesso di utilizzare questo comando", ephemeral: true })
             }
@@ -158,8 +207,8 @@ client.on("interactionCreate", interaction => {
                 .addField("Tempo", time)
                 .addField("Reason", reason)
                 client.channels.cache.get("968593581310869555").send({embeds: [embed]})
-        
-        }
+                
+            }
 
 
 
@@ -723,12 +772,80 @@ client.on("interactionCreate", interaction => {
         .setDescription("E' necessario verificarti per riuscire ad accedere a tutte le funzionalità del server, questo passaggio serve per prevenire eventuali raid o complicanze da parte degli utenti.")
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
-
-
+    if (interaction.customId == "Confermabutton") {
+        
+        var embed = new Discord.MessageEmbed()
+        .setTitle(`Nuova suggestion!`)
+        .setDescription("Che ne pensate di questa suggestion? Reagite a questo messaggio con le 2 emoji per esprimere la vostra opinione!")
+        .setColor("ORANGE")
+        .addField("Suggest:", suggestion)
+        .setTimestamp()
+        interaction.reply({ embeds: [embed], ephemeral: true })
+    }
+    if (interaction.customId == "Mutabutton") {
+        const asasasas = interaction.guild.roles.cache.get("877679056810819664");
+        interaction.member.roles.add(asasasas);
+        var embed = new Discord.MessageEmbed()
+        .setTitle("L'utente è stato mutato")
+        .addField("Mutato da:", "** **")
+        .addField("Ricordati ti unmutare l'utente dopo un certo tempo, deciso in base alla gravità e al contenuto del link", "** **")
+        .setColor("RED")
+        interaction.reply({ embeds: [embed]})
+    }
+    if (interaction.customId == "umutarebutton") {
+        const asasasas = interaction.guild.roles.cache.get("877679056810819664");
+        interaction.member.roles.remove(asasasas);
+        var embed = new Discord.MessageEmbed()
+        .setTitle("L'utente è stato smutato")
+        .addField("Smutato da:", "** **")
+        .setColor("GREEN")
+        .setTimestamp()
+        interaction.reply({ embeds: [embed]})
+    }
 })
 
 
 client.on('messageCreate', message => {
+    var parolacce = ["http", "Http"
+ ] 
+    
+   
+ var trovata = false;
+    
+parolacce.forEach(parola => {
+if (message.content.includes(parola))  {
+trovata = true;
+}
+  
+    })
+    if(trovata) {
+        if (message.member.permissions.has("KICK_MEMBERS")) { 
+            return
+        }
+    var embed = new Discord.MessageEmbed()
+    .setTitle("Qualcuno ha mandato un link!")
+    .addField("Scegli se mutare o ignorare", message.author.toString())
+    .addField("ATTENZIONE!", "Se decidi di mutare una persona, ricorda, unmutala dopo.")
+    .setDescription("Decidi se prendere dei provvedimenti oppure no")
+    .setColor("RED")
+    .setTimestamp()
+    var button = new Discord.MessageButton()
+    .setLabel("Muta")
+    .setStyle("DANGER")
+    .setCustomId("Mutabutton")
+    var button1 = new Discord.MessageButton()
+    .setLabel("Smuta")
+    .setStyle("SUCCESS")
+    .setCustomId("umutarebutton")
+    var row = new Discord.MessageActionRow()
+    .addComponents(button)
+    .addComponents(button1)
+    client.channels.cache.get("876420670022643782").send("<@609310540686426141>")
+    client.channels.cache.get("876420670022643782").send({embeds: [embed], components: [row]})
+}
+   
+   
+   
     if(message.content === '-join') {
         if (!message.member.permissions.has('BAN_MEMBERS')) {
             return message.channel.send("Non puoi eseguire questo comando");
