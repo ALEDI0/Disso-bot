@@ -161,8 +161,8 @@ client.on("interactionCreate", interaction => {
             }   
             var embed = new Discord.MessageEmbed()
             .setColor("AQUA")
-            .setTitle("PING")
-            .setDescription("Quali notifiche vuoi ricevere?")
+            .setTitle("GENERE")
+            .setDescription("Qual è il tuo genere? Clicca sull’emoji per farti conoscere dalla community")
             .addField("Twitch 🟣", "** **",  false)
             .addField("Palco 🟠", "** **",  false)
             .addField("Minecraft 🟢", "** **", false)
@@ -173,11 +173,11 @@ client.on("interactionCreate", interaction => {
             .setStyle("PRIMARY")
             var button2 = new Discord.MessageButton()
             .setEmoji("🟠")
-            .setCustomId("Palcorr")
+            .setCustomId("palcorr")
             .setStyle("PRIMARY")
             var button3 = new Discord.MessageButton()
             .setEmoji("🟢")
-            .setCustomId("Minecraftprr")
+            .setCustomId("minecraftprr")
             .setStyle("PRIMARY")
             var buttonremove = new Discord.MessageButton()
             .setEmoji("❌")
@@ -190,6 +190,9 @@ client.on("interactionCreate", interaction => {
             .addComponents(buttonremove)
             interaction.reply({ embeds: [embed], components: [row], })
         }   
+            
+        
+        
         if (interaction.commandName == "ping") {
             var embed = new Discord.MessageEmbed()
             .setTitle("Ping del bot")
@@ -535,7 +538,7 @@ client.on("interactionCreate", interaction => {
         .setTitle("I ruoli sono stati tolti con successo!")
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
-    if (interaction.customId == "Twichrr") {                          //Twich             //Twich
+    if (interaction.customId == "Twichrr") {           //Twichrr           //Twichrr
         const maschio = interaction.guild.roles.cache.get("974324592682348574");
         interaction.member.roles.add(maschio);
         var embed = new Discord.MessageEmbed()
@@ -543,20 +546,24 @@ client.on("interactionCreate", interaction => {
         .setTitle("Hai ottenuto il tuo ruolo con successo!")
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
-    if (interaction.customId == "Palcorr") {                   //Palcorr            //Palcorr                     //Palcorr
+    if (interaction.customId == "palcorr") {
+        
         const maschio = interaction.guild.roles.cache.get("974324607630843954");
         interaction.member.roles.add(maschio);
         var embed = new Discord.MessageEmbed()
         .setColor("GREEN")
         .setTitle("Hai ottenuto il tuo ruolo con successo!")
+        
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
-    if (interaction.customId == "Minecraftprr") {                        //Minecraftprr                  //Minecraftprr          //Minecraftprr
+    if (interaction.customId == "minecraftprr") {
+        
         const maschio = interaction.guild.roles.cache.get("974324611401535538");
         interaction.member.roles.add(maschio);
         var embed = new Discord.MessageEmbed()
         .setColor("GREEN")
         .setTitle("Hai ottenuto il tuo ruolo con successo!")
+        
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
     if (interaction.customId == "maschio") {           //genere            //genere
