@@ -526,7 +526,7 @@ client.on("interactionCreate", interaction => {
         }
 })
 client.on("interactionCreate", interaction => {
-    if (interaction.customId == "remove2") {                           //remove                       //remove
+    if (interaction.customId == "remove3") {                           //remove                       //remove
         const maschio = interaction.guild.roles.cache.get("974324592682348574");
         const maschio1 = interaction.guild.roles.cache.get("974324607630843954");
         const maschio2 = interaction.guild.roles.cache.get("974324611401535538");
@@ -547,8 +547,7 @@ client.on("interactionCreate", interaction => {
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
     if (interaction.customId == "palcorr") {
-        
-        const maschio = interaction.guild.roles.cache.get("974324607630843954");
+         const maschio = interaction.guild.roles.cache.get("974324607630843954");
         interaction.member.roles.add(maschio);
         var embed = new Discord.MessageEmbed()
         .setColor("GREEN")
@@ -557,7 +556,6 @@ client.on("interactionCreate", interaction => {
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
     if (interaction.customId == "minecraftprr") {
-        
         const maschio = interaction.guild.roles.cache.get("974324611401535538");
         interaction.member.roles.add(maschio);
         var embed = new Discord.MessageEmbed()
