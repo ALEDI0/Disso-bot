@@ -1,8 +1,10 @@
-const { Message, VoiceRegion } = require('discord.js');
-
+const { Message, VoiceRegion, MessageActionRow } = require('discord.js');
+const { joinVoiceChannel } = require('@discordjs/voice');
+const { SpotifyPlugin } = require("@distube/spotify")
+const { DisTube } = require("distube")
 global.Discord = require('discord.js');
 const client = new Discord.Client({
-    intents: ["GUILDS", "GUILD_MEMBERS", "GUILD_MESSAGES", "GUILD_INTEGRATIONS"] 
+    intents: ["GUILDS", "GUILD_MEMBERS", "GUILD_MESSAGES", "GUILD_INTEGRATIONS", "GUILD_VOICE_STATES"] 
 })
 
 client.login("OTYxNjQ1NDYzMDUwODA5NDY1.Yk8AIA.XQKzJngww_bohN4egvyR78U_NaI");
@@ -19,12 +21,6 @@ client.on("guildMemberAdd", member => {
     .setFooter({ text: "Sei un grande!"})
     .setColor("ORANGE")
     client.channels.cache.get("786011792111304775").send({embeds: [embed]});        
-
-    
-        
-   
-   
-
 
 })
 
@@ -50,6 +46,10 @@ client.on("ready", () => {
             description: "Pannello personalità rr"
         })
         guild.commands.create({
+            name: "rrpanel3",
+            description: "Pannello ping rr"
+        })
+        guild.commands.create({
             name: "kick",
             description: "Kickare un utente",
             options: [
@@ -68,6 +68,10 @@ client.on("ready", () => {
             ]
         })
         guild.commands.create({
+            name: "ping",
+            description: "Guarda il ping del bot"
+        })
+            guild.commands.create({
             name: "poll",
             description: "crea un poll",
             options: [
@@ -107,8 +111,43 @@ client.on("ready", () => {
             
             ]
         })
-       
-    
+        guild.commands.create({
+            name: "timeout",
+            description: "metti in timeout un utente",
+            options: [
+                {
+                    name: "user",
+                    description: "Scegli l'utente da mettere in timeout",
+                    type: "USER",
+                    required: true
+                },
+                {
+                    name: "time",
+                    description: "Scegli il tempo in cui l'utente starà in timeout",
+                    type: "STRING",
+                    required: true
+                },
+                {
+                    name: "reason",
+                    description: "Scegli la motivazione per cui un utente viene messo in timeout",
+                    type: "STRING",
+                    required: false
+                }
+            ]
+        })
+        guild.commands.create({
+            name: "suggest",
+            description: "Fai una suggest!",
+            options: [
+                {
+                    name: "suggestion",
+                    description: "Scrivi cosa conterrà la tua suggestion",
+                    type: "STRING",
+                    required: true
+                }
+               
+            ]
+        })
     
     })
 
@@ -116,7 +155,104 @@ client.on("ready", () => {
 
 client.on("interactionCreate", interaction => {
         if (!interaction.isCommand()) return
+        if (interaction.commandName == "rrpanel3") {
+            if (!interaction.member.permissions.has("BAN_MEMBERS")) {
+                return interaction.reply({ content: "Non hai il permesso di utilizzare questo comando", ephemeral: true })
+            }   
+            var embed = new Discord.MessageEmbed()
+            .setColor("AQUA")
+            .setTitle("PING")
+            .setDescription("Quali notifiche vuoi ricevere?")
+            .addField("Twitch -> Ping Twitch 🟣", "** **",  false)
+            .addField("Palco -> Ping Palco 🟠", "** **",  false)
+            .addField("Minecraft -> Ping Minecraft 🟢", "** **", false)
+            .addField("Remove ❌", "Questo bottone serve per rimuovere i ruoli, in caso non facessero per te.")
+            var button1 = new Discord.MessageButton()
+            .setEmoji("🟣")
+            .setCustomId("Twichrr")
+            .setStyle("PRIMARY")
+            var button2 = new Discord.MessageButton()
+            .setEmoji("🟠")
+            .setCustomId("Palcorr")
+            .setStyle("PRIMARY")
+            var button3 = new Discord.MessageButton()
+            .setEmoji("🟢")
+            .setCustomId("Minecraftprr")
+            .setStyle("PRIMARY")
+            var buttonremove = new Discord.MessageButton()
+            .setEmoji("❌")
+            .setCustomId("remove3")
+            .setStyle("SECONDARY")
+            var row = new Discord.MessageActionRow()
+            .addComponents(button1)
+            .addComponents(button2)
+            .addComponents(button3)
+            .addComponents(buttonremove)
+            interaction.reply({ embeds: [embed], components: [row], })
+        }   
+        if (interaction.commandName == "ping") {
+            var embed = new Discord.MessageEmbed()
+            .setTitle("Ping del bot")
+            .setDescription("Ecco il ping del bot")
+            .setColor("ORANGE")
+            .setThumbnail("https://cdn.discordapp.com/avatars/961645463050809465/36a963135aa5c645b865ef3609f8f8f8.png?size=1024")
+            .addField("Ping", `${client.ws.ping}ms`)
+            .setTimestamp()
+         interaction.reply({ embeds: [embed], ephemeral: true })
+        }
+            if (interaction.commandName == "suggest") {
+            let suggestion = interaction.options.getString("suggestion")
+            
+            var embed = new Discord.MessageEmbed()
+            .setTitle(`Nuova suggest da approvare`)
+            .setDescription("Scegli se accettare questa suggest o rifiutarla")
+            .setColor("ORANGE")
+            .addField("Suggest:", suggestion)
+            .setTimestamp()
+            var button1 = new Discord.MessageButton()
+            .setLabel("Conferma")
+            .setStyle("SUCCESS")
+            .setCustomId("Confermabutton")
+            var button2 = new Discord.MessageButton()
+            .setLabel("Rifiuta")
+            .setStyle("DANGER")
+            .setCustomId("Rifiutabutton")
+            var row = new Discord.MessageActionRow()
+            .addComponents(button1)
+            .addComponents(button2)
+            client.channels.cache.get("965703200437067816").send({embeds: [embed], components: [row]})
+            client.channels.cache.get("965703200437067816").send("<@609310540686426141>")
+            interaction.reply({ content: "La tua richiesta è stata inoltrata", ephemeral: true})
         
+        }
+            if (interaction.commandName == "timeout") {
+            if (!interaction.member.permissions.has("ADMINISTRATOR")) {
+                return interaction.reply({ content: "Non hai il permesso di utilizzare questo comando", ephemeral: true })
+            }
+            if(!time){
+                return interaction.reply({ content: "Non hai selezionato il tempo per cui l'utente verà timeoutato", ephemeral: true })
+            }
+            var utente = interaction.options.getUser("user")
+            var reason = interaction.options.getString("reason") || "Nessun motivo"
+            var time = interaction.options.getString("time") 
+            var member = interaction.guild.members.cache.get(utente.id)
+            
+                member.timeout(time)
+                var embed = new Discord.MessageEmbed()
+                .setColor("RED")
+                .setTitle("Utente timeoutato")
+                .setThumbnail(utente.displayAvatarURL())
+                .addField("User", utente.toString())
+                .addField("Tempo", time)
+                .addField("Reason", reason)
+                client.channels.cache.get("968593581310869555").send({embeds: [embed]})
+                
+            }
+
+
+
+
+
         if (interaction.commandName == "poll") {
             if (!interaction.member.permissions.has("ADMINISTRATOR")) {
                 return interaction.reply({ content: "Non hai il permesso di utilizzare questo comando", ephemeral: true })
@@ -137,10 +273,7 @@ client.on("interactionCreate", interaction => {
                 .addField("4️⃣"+ " " + option4 , "** **")
                 .setFooter({ text: "Il sondaggio è stato avviato!"})
                 interaction.reply({ embeds: [embed] })
-                .then(embedMessage => {
-                    
-                   interaction.embedMessage.react("👎");
-                })
+                
                 }
        
             if (interaction.commandName == "kick") {
@@ -371,7 +504,7 @@ client.on("interactionCreate", interaction => {
             }
             var button1 = new Discord.MessageButton()
             .setLabel("Verify")
-            .setCustomId("verifypanel")
+            .setCustomId("verifypanelcid")
             .setStyle("SUCCESS")
             var button2 = new Discord.MessageButton()
             .setLabel("Perché?")
@@ -390,7 +523,42 @@ client.on("interactionCreate", interaction => {
         }
 })
 client.on("interactionCreate", interaction => {
-    
+    if (interaction.customId == "remove2") {                           //remove                       //remove
+        const maschio = interaction.guild.roles.cache.get("974324592682348574");
+        const maschio1 = interaction.guild.roles.cache.get("974324607630843954");
+        const maschio2 = interaction.guild.roles.cache.get("974324611401535538");
+        interaction.member.roles.remove(maschio);
+        interaction.member.roles.remove(maschio1);
+        interaction.member.roles.remove(maschio2);
+        var embed = new Discord.MessageEmbed()
+        .setColor("RED")
+        .setTitle("I ruoli sono stati tolti con successo!")
+        interaction.reply({ embeds: [embed], ephemeral: true })
+    }
+    if (interaction.customId == "Twichrr") {                          //Twich             //Twich
+        const maschio = interaction.guild.roles.cache.get("974324592682348574");
+        interaction.member.roles.add(maschio);
+        var embed = new Discord.MessageEmbed()
+        .setColor("GREEN")
+        .setTitle("Hai ottenuto il tuo ruolo con successo!")
+        interaction.reply({ embeds: [embed], ephemeral: true })
+    }
+    if (interaction.customId == "Palcorr") {                   //Palcorr            //Palcorr                     //Palcorr
+        const maschio = interaction.guild.roles.cache.get("974324607630843954");
+        interaction.member.roles.add(maschio);
+        var embed = new Discord.MessageEmbed()
+        .setColor("GREEN")
+        .setTitle("Hai ottenuto il tuo ruolo con successo!")
+        interaction.reply({ embeds: [embed], ephemeral: true })
+    }
+    if (interaction.customId == "Minecraftprr") {                        //Minecraftprr                  //Minecraftprr          //Minecraftprr
+        const maschio = interaction.guild.roles.cache.get("974324611401535538");
+        interaction.member.roles.add(maschio);
+        var embed = new Discord.MessageEmbed()
+        .setColor("GREEN")
+        .setTitle("Hai ottenuto il tuo ruolo con successo!")
+        interaction.reply({ embeds: [embed], ephemeral: true })
+    }
     if (interaction.customId == "maschio") {           //genere            //genere
         const maschio = interaction.guild.roles.cache.get("967858953960701983");
         interaction.member.roles.add(maschio);
@@ -618,7 +786,9 @@ client.on("interactionCreate", interaction => {
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
     
+
     
+
     
     if (interaction.customId == "remove2") {                           //remove                       //remove
         const maschio = interaction.guild.roles.cache.get("967858978312831077");
@@ -656,7 +826,7 @@ client.on("interactionCreate", interaction => {
         .setTitle("I ruoli sono stati tolti con successo!")
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
-    if (interaction.customId == "verifypanel") {
+    if (interaction.customId == "verifypanelcid") {
         const role = interaction.guild.roles.cache.get("786012564370489344");
         const role1 = interaction.guild.roles.cache.get("892512109664043069");
         
@@ -676,6 +846,345 @@ client.on("interactionCreate", interaction => {
         .setDescription("E' necessario verificarti per riuscire ad accedere a tutte le funzionalità del server, questo passaggio serve per prevenire eventuali raid o complicanze da parte degli utenti.")
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
+    if (interaction.customId == "Confermabutton") {
+        
+        var embed = new Discord.MessageEmbed()
+        .setTitle(`Nuova suggestion!`)
+        .setDescription("Che ne pensate di questa suggestion? Reagite a questo messaggio con le 2 emoji per esprimere la vostra opinione!")
+        .setColor("ORANGE")
+        .addField("Suggest:", suggestion)
+        .setTimestamp()
+        interaction.reply({ embeds: [embed], ephemeral: true })
+    }
+    if (interaction.customId == "Mutabutton") {
+        const asasasas = interaction.guild.roles.cache.get("877679056810819664");
+        interaction.member.roles.add(asasasas);
+        var embed = new Discord.MessageEmbed()
+        .setTitle("L'utente è stato mutato")
+        .addField("Mutato da:", "** **")
+        .addField("Ricordati ti unmutare l'utente dopo un certo tempo, deciso in base alla gravità e al contenuto del link", "** **")
+        .setColor("RED")
+        interaction.reply({ embeds: [embed]})
+    }
+    if (interaction.customId == "umutarebutton") {
+        const asasasas = interaction.guild.roles.cache.get("877679056810819664");
+        interaction.member.roles.remove(asasasas);
+        var embed = new Discord.MessageEmbed()
+        .setTitle("L'utente è stato smutato")
+        .addField("Smutato da:", "** **")
+        .setColor("GREEN")
+        .setTimestamp()
+        interaction.reply({ embeds: [embed]})
+    }
+})
 
 
+client.on('messageCreate', message => {
+    var parolacce = ["http", "Http"
+ ] 
+    
+   
+ var trovata = false;
+    
+parolacce.forEach(parola => {
+if (message.content.includes(parola))  {
+trovata = true;
+}
+  
+    })
+    if(trovata) {
+        if (message.member.permissions.has("KICK_MEMBERS")) { 
+            return
+        }
+    var embed = new Discord.MessageEmbed()
+    .setTitle("Qualcuno ha mandato un link!")
+    .addField("Scegli se mutare o ignorare", message.author.toString())
+    .addField("ATTENZIONE!", "Se decidi di mutare una persona, ricorda, unmutala dopo.")
+    .setDescription("Decidi se prendere dei provvedimenti oppure no")
+    .setColor("RED")
+    .setTimestamp()
+    var button = new Discord.MessageButton()
+    .setLabel("Muta")
+    .setStyle("DANGER")
+    .setCustomId("Mutabutton")
+    var button1 = new Discord.MessageButton()
+    .setLabel("Smuta")
+    .setStyle("SUCCESS")
+    .setCustomId("umutarebutton")
+    var row = new Discord.MessageActionRow()
+    .addComponents(button)
+    .addComponents(button1)
+    client.channels.cache.get("876420670022643782").send("<@609310540686426141>")
+    client.channels.cache.get("876420670022643782").send({embeds: [embed], components: [row]})
+}
+   
+   
+   
+    if(message.content === '-join') {
+        if (!message.member.permissions.has('BAN_MEMBERS')) {
+            return message.channel.send("Non puoi eseguire questo comando");
+        } 
+        joinVoiceChannel({
+            channelId: message.member.voice.channel.id,
+            guildId: message.guild.id,
+            adapterCreator: message.guild.voiceAdapterCreator
+        })
+    }
+})
+const distube = new DisTube(client, {
+    youtubeDL: false,
+    plugins: [new SpotifyPlugin()],
+    leaveOnEmpty: true,
+    leaveOnStop: true
+})
+client.on("messageCreate", message => {
+    if (message.content.startsWith("-play")) {
+        const voiceChannel = message.member.voice.channel
+        if (!voiceChannel) {
+            return message.channel.send("Devi essere in un canale vocale")
+        }
+
+        const voiceChannelBot = message.guild.channels.cache.find(x => x.type == "GUILD_VOICE" && x.members.has(client.user.id))
+        if (voiceChannelBot && voiceChannel.id != voiceChannelBot.id) {
+            return message.channel.send("Qualun'altro sta già ascoltando della musica")
+        }
+
+        let args = message.content.split(/\s+/)
+        let query = args.slice(1).join(" ")
+
+        if (!query) {
+            return message.channel.send("Inserisci la canzone che vuoi ascoltare")
+        }
+
+        distube.play(voiceChannelBot || voiceChannel, query, {
+            member: message.member,
+            textChannel: message.channel,
+            message: message
+        })
+    }
+
+    if (message.content == "-pause") {
+        const voiceChannel = message.member.voice.channel
+        if (!voiceChannel) {
+            return message.channel.send("Devi essere in un canale vocale")
+        }
+
+        const voiceChannelBot = message.guild.channels.cache.find(x => x.type == "GUILD_VOICE" && x.members.has(client.user.id))
+        if (voiceChannelBot && voiceChannel.id != voiceChannelBot.id) {
+            return message.channel.send("Qualun'altro sta già ascoltando della musica")
+        }
+
+        try {
+            distube.pause(message)
+                .catch(() => { return message.channel.send("Nessuna canzone in riproduzione o canzone già in pausa") })
+        } catch {
+            return message.channel.send("Nessuna canzone in riproduzione o canzone già in pausa")
+        }
+
+        message.channel.send("Song paused")
+    }
+
+    if (message.content == "-resume") {
+        const voiceChannel = message.member.voice.channel
+        if (!voiceChannel) {
+            return message.channel.send("Devi essere in un canale vocale")
+        }
+
+        const voiceChannelBot = message.guild.channels.cache.find(x => x.type == "GUILD_VOICE" && x.members.has(client.user.id))
+        if (voiceChannelBot && voiceChannel.id != voiceChannelBot.id) {
+            return message.channel.send("Qualun'altro sta già ascoltando della musica")
+        }
+
+        try {
+            distube.resume(message)
+                .catch(() => { return message.channel.send("Nessuna canzone in riproduzione o canzone già in riproduzione") })
+        } catch {
+            return message.channel.send("Nessuna canzone in riproduzione o canzone già in riproduzione")
+        }
+
+        message.channel.send("Song resumed")
+    }
+
+    if (message.content == "-queue") {
+        const voiceChannel = message.member.voice.channel
+        if (!voiceChannel) {
+            return message.channel.send("Devi essere in un canale vocale")
+        }
+
+        const voiceChannelBot = message.guild.channels.cache.find(x => x.type == "GUILD_VOICE" && x.members.has(client.user.id))
+        if (voiceChannelBot && voiceChannel.id != voiceChannelBot.id) {
+            return message.channel.send("Qualun'altro sta già ascoltando della musica")
+        }
+
+        let queue = distube.getQueue(message)
+
+        if (!queue) return message.channel.send("Coda vuota")
+
+        let totPage = Math.ceil(queue.songs.length / 10)
+        let page = 1
+
+        let songsList = ""
+        for (let i = 10 * (page - 1); i < 10 * page; i++) {
+            if (queue.songs[i]) {
+                songsList += `${i + 1}. **${queue.songs[i].name.length <= 100 ? queue.songs[i].name : `${queue.songs[i].name.slice(0, 100)}...`}** - ${queue.songs[i].formattedDuration}\r`
+            }
+        }
+
+        let embed = new Discord.MessageEmbed()
+            .addField("Queue", songsList)
+            .setFooter({ text: `Page ${page}/${totPage}` })
+
+        let button1 = new Discord.MessageButton()
+            .setLabel("Indietro")
+            .setStyle("PRIMARY")
+            .setCustomId("indietro")
+
+        let button2 = new Discord.MessageButton()
+            .setLabel("Avanti")
+            .setStyle("PRIMARY")
+            .setCustomId("avanti")
+
+        if (page == 1) button1.setDisabled()
+        if (page == totPage) button2.setDisabled()
+
+        let row = new Discord.MessageActionRow()
+            .addComponents(button1)
+            .addComponents(button2)
+
+        message.channel.send({ embeds: [embed], components: [row] })
+            .then(msg => {
+                const collector = msg.createMessageComponentCollector()
+
+                collector.on("collect", i => {
+                    i.deferUpdate()
+
+                    if (i.user.id != message.author.id) return i.reply({ content: "Questo bottone non è tuo", ephemeral: true })
+
+                    if (i.customId == "indietro") {
+                        page--
+                        if (page < 1) page = 1
+                    }
+                    if (i.customId == "avanti") {
+                        page++
+                        if (page > totPage) page = totPage
+                    }
+
+                    let songsList = ""
+                    for (let i = 10 * (page - 1); i < 10 * page; i++) {
+                        if (queue.songs[i]) {
+                            songsList += `${i + 1}. **${queue.songs[i].name.length <= 100 ? queue.songs[i].name : `${queue.songs[i].name.slice(0, 100)}...`}** - ${queue.songs[i].formattedDuration}\r`
+                        }
+                    }
+
+                    let embed = new Discord.MessageEmbed()
+                        .addField("Queue", songsList)
+                        .setFooter({ text: `Page ${page}/${totPage}` })
+
+                    let button1 = new Discord.MessageButton()
+                        .setLabel("Indietro")
+                        .setStyle("PRIMARY")
+                        .setCustomId("indietro")
+
+                    let button2 = new Discord.MessageButton()
+                        .setLabel("Avanti")
+                        .setStyle("PRIMARY")
+                        .setCustomId("avanti")
+
+                    if (page == 1) button1.setDisabled()
+                    if (page == totPage) button2.setDisabled()
+
+                    let row = new Discord.MessageActionRow()
+                        .addComponents(button1)
+                        .addComponents(button2)
+
+                    msg.edit({ embeds: [embed], components: [row] })
+                })
+            })
+    }
+
+    if (message.content == "-skip") {
+        const voiceChannel = message.member.voice.channel
+        if (!voiceChannel) {
+            return message.channel.send("Devi essere in un canale vocale")
+        }
+
+        const voiceChannelBot = message.guild.channels.cache.find(x => x.type == "GUILD_VOICE" && x.members.has(client.user.id))
+        if (voiceChannelBot && voiceChannel.id != voiceChannelBot.id) {
+            return message.channel.send("Qualun'altro sta già ascoltando della musica")
+        }
+
+        try {
+            distube.skip(message)
+                .catch(() => { return message.channel.send("Nessuna canzone in riproduzione o canzone successiva non presente") })
+        } catch {
+            return message.channel.send("Nessuna canzone in riproduzione o canzone successiva non presente")
+        }
+
+        message.channel.send("Song skipped")
+    }
+
+    if (message.content == "-previous") {
+        const voiceChannel = message.member.voice.channel
+        if (!voiceChannel) {
+            return message.channel.send("Devi essere in un canale vocale")
+        }
+
+        const voiceChannelBot = message.guild.channels.cache.find(x => x.type == "GUILD_VOICE" && x.members.has(client.user.id))
+        if (voiceChannelBot && voiceChannel.id != voiceChannelBot.id) {
+            return message.channel.send("Qualun'altro sta già ascoltando della musica")
+        }
+
+        try {
+            distube.previous(message)
+                .catch(() => { return message.channel.send("Nessuna canzone in riproduzione o canzone precedente non presente") })
+        } catch {
+            return message.channel.send("Nessuna canzone in riproduzione o canzone precedente non presente")
+        }
+
+        message.channel.send("Previous song")
+    }
+
+    if (message.content == "-stop") {
+        const voiceChannel = message.member.voice.channel
+        if (!voiceChannel) {
+            return message.channel.send("Devi essere in un canale vocale")
+        }
+
+        const voiceChannelBot = message.guild.channels.cache.find(x => x.type == "GUILD_VOICE" && x.members.has(client.user.id))
+        if (voiceChannelBot && voiceChannel.id != voiceChannelBot.id) {
+            return message.channel.send("Qualun'altro sta già ascoltando della musica")
+        }
+
+        try {
+            distube.stop(message)
+                .catch(() => { return message.channel.send("Nessuna canzone in riproduzione") })
+        } catch {
+            return message.channel.send("Nessuna canzone in riproduzione")
+        }
+
+        message.channel.send("Queue stopped")
+    }
+})
+
+distube.on("addSong", (queue, song) => {
+    let embed = new Discord.MessageEmbed()
+        .setColor("AQUA")
+        .setTitle("Song added")
+        .addField("Song", song.name)
+
+    queue.textChannel.send({ embeds: [embed] })
+})
+
+distube.on("playSong", (queue, song) => {
+    let embed = new Discord.MessageEmbed()
+        .setColor("ORANGE")
+        .setTitle("Playing song...")
+        .addField("Song", song.name)
+        .addField("Requested by", song.user.toString())
+
+    queue.textChannel.send({ embeds: [embed] })
+})
+
+distube.on("searchNoResult", (message, query) => {
+    message.channel.send("Canzone non trovata")
 })
