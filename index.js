@@ -46,6 +46,10 @@ client.on("ready", () => {
             description: "Pannello personalità rr"
         })
         guild.commands.create({
+            name: "rrpanel3",
+            description: "Pannello ping rr"
+        })
+        guild.commands.create({
             name: "kick",
             description: "Kickare un utente",
             options: [
@@ -151,6 +155,44 @@ client.on("ready", () => {
 
 client.on("interactionCreate", interaction => {
         if (!interaction.isCommand()) return
+        if (interaction.commandName == "rrpanel3") {
+            if (!interaction.member.permissions.has("BAN_MEMBERS")) {
+                return interaction.reply({ content: "Non hai il permesso di utilizzare questo comando", ephemeral: true })
+            }   
+            var embed = new Discord.MessageEmbed()
+            .setColor("AQUA")
+            .setTitle("GENERE")
+            .setDescription("Qual è il tuo genere? Clicca sull’emoji per farti conoscere dalla community")
+            .addField("Twitch 🟣", "** **",  false)
+            .addField("Palco 🟠", "** **",  false)
+            .addField("Minecraft 🟢", "** **", false)
+            .addField("Remove ❌", "Questo bottone serve per rimuovere i ruoli, in caso non facessero per te.")
+            var button1 = new Discord.MessageButton()
+            .setEmoji("🟣")
+            .setCustomId("Twichrr")
+            .setStyle("PRIMARY")
+            var button2 = new Discord.MessageButton()
+            .setEmoji("🟠")
+            .setCustomId("palcorr")
+            .setStyle("PRIMARY")
+            var button3 = new Discord.MessageButton()
+            .setEmoji("🟢")
+            .setCustomId("minecraftprr")
+            .setStyle("PRIMARY")
+            var buttonremove = new Discord.MessageButton()
+            .setEmoji("❌")
+            .setCustomId("remove4")
+            .setStyle("SECONDARY")
+            var row = new Discord.MessageActionRow()
+            .addComponents(button1)
+            .addComponents(button2)
+            .addComponents(button3)
+            .addComponents(buttonremove)
+            interaction.reply({ embeds: [embed], components: [row], })
+        }   
+            
+        
+        
         if (interaction.commandName == "ping") {
             var embed = new Discord.MessageEmbed()
             .setTitle("Ping del bot")
@@ -226,16 +268,18 @@ client.on("interactionCreate", interaction => {
             var embed = new Discord.MessageEmbed()
                 .setColor("ORANGE")
                 .setTitle("Domanda")
-                .setDescription(title)
-                .setThumbnail("https://cdn.discordapp.com/attachments/959112377687748628/968913031268548668/zenitsu.png")
+                .setDescription("**" + title + "**")
+                .setThumbnail("https://cdn.discordapp.com/attachments/923917959246778378/968496481541709894/DiddoServer.gif")
                 .addField("1️⃣"+ " " + option1 , "** **" )
                 .addField("2️⃣"+ " " + option2 , "** **")
                 .addField("3️⃣"+ " " + option3 , "** **")
                 .addField("4️⃣"+ " " + option4 , "** **")
                 .setFooter({ text: "Il sondaggio è stato avviato!"})
+                .setTimestamp()
                 interaction.reply({ embeds: [embed] })
                 
-                }
+            
+            }
        
             if (interaction.commandName == "kick") {
             if (!interaction.member.permissions.has("BAN_MEMBERS")) {
@@ -484,7 +528,44 @@ client.on("interactionCreate", interaction => {
         }
 })
 client.on("interactionCreate", interaction => {
-    
+    if (interaction.customId == "remove4") {                           //remove                       //remove
+        const maschio = interaction.guild.roles.cache.get("974324592682348574");
+        const maschio1 = interaction.guild.roles.cache.get("974324607630843954");
+        const maschio2 = interaction.guild.roles.cache.get("974324611401535538");
+        interaction.member.roles.remove(maschio);
+        interaction.member.roles.remove(maschio1);
+        interaction.member.roles.remove(maschio2);
+        var embed = new Discord.MessageEmbed()
+        .setColor("RED")
+        .setTitle("I ruoli sono stati tolti con successo!")
+        interaction.reply({ embeds: [embed], ephemeral: true })
+    }
+    if (interaction.customId == "Twichrr") {           //Twichrr           //Twichrr
+        const maschio = interaction.guild.roles.cache.get("974324592682348574");
+        interaction.member.roles.add(maschio);
+        var embed = new Discord.MessageEmbed()
+        .setColor("GREEN")
+        .setTitle("Hai ottenuto il tuo ruolo con successo!")
+        interaction.reply({ embeds: [embed], ephemeral: true })
+    }
+    if (interaction.customId == "palcorr") {
+         const maschio = interaction.guild.roles.cache.get("974324607630843954");
+        interaction.member.roles.add(maschio);
+        var embed = new Discord.MessageEmbed()
+        .setColor("GREEN")
+        .setTitle("Hai ottenuto il tuo ruolo con successo!")
+        
+        interaction.reply({ embeds: [embed], ephemeral: true })
+    }
+    if (interaction.customId == "minecraftprr") {
+        const maschio = interaction.guild.roles.cache.get("974324611401535538");
+        interaction.member.roles.add(maschio);
+        var embed = new Discord.MessageEmbed()
+        .setColor("GREEN")
+        .setTitle("Hai ottenuto il tuo ruolo con successo!")
+        
+        interaction.reply({ embeds: [embed], ephemeral: true })
+    }
     if (interaction.customId == "maschio") {           //genere            //genere
         const maschio = interaction.guild.roles.cache.get("967858953960701983");
         interaction.member.roles.add(maschio);
@@ -787,17 +868,17 @@ client.on("interactionCreate", interaction => {
         interaction.member.roles.add(asasasas);
         var embed = new Discord.MessageEmbed()
         .setTitle("L'utente è stato mutato")
-        .addField("Mutato da:", "** **")
+        .addField("Mutato da:", interaction.message.author.toString())
         .addField("Ricordati ti unmutare l'utente dopo un certo tempo, deciso in base alla gravità e al contenuto del link", "** **")
         .setColor("RED")
         interaction.reply({ embeds: [embed]})
     }
     if (interaction.customId == "umutarebutton") {
         const asasasas = interaction.guild.roles.cache.get("877679056810819664");
-        interaction.member.roles.remove(asasasas);
+        interaction.roles.add(asasasas);
         var embed = new Discord.MessageEmbed()
         .setTitle("L'utente è stato smutato")
-        .addField("Smutato da:", "** **")
+        .addField("Smutato da:", interaction.message.author.toString())
         .setColor("GREEN")
         .setTimestamp()
         interaction.reply({ embeds: [embed]})
@@ -821,7 +902,9 @@ trovata = true;
     if(trovata) {
         if (message.member.permissions.has("KICK_MEMBERS")) { 
             return
-        }
+        } 
+    
+    
     var embed = new Discord.MessageEmbed()
     .setTitle("Qualcuno ha mandato un link!")
     .addField("Scegli se mutare o ignorare", message.author.toString())
@@ -1114,4 +1197,3 @@ distube.on("playSong", (queue, song) => {
 distube.on("searchNoResult", (message, query) => {
     message.channel.send("Canzone non trovata")
 })
-
