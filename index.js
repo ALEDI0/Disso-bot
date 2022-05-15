@@ -271,6 +271,7 @@ client.on("interactionCreate", interaction => {
                 
             
             }
+
             if (interaction.commandName == "kick") {
             if (!interaction.member.permissions.has("BAN_MEMBERS")) {
                 return interaction.reply({ content: "Non hai il permesso di utilizzare questo comando", ephemeral: true })
@@ -518,6 +519,7 @@ client.on("interactionCreate", interaction => {
         }
 })
 client.on("interactionCreate", interaction => {
+
 
         if (interaction.customId == "remove4") {                           //remove                       //remove
         const maschio = interaction.guild.roles.cache.get("974324592682348574");
@@ -872,6 +874,10 @@ client.on("interactionCreate", interaction => {
         .setTimestamp()
         interaction.reply({ embeds: [embed]})
     }
+    
+
+    
+
 
 })
 
