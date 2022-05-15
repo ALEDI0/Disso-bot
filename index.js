@@ -154,7 +154,6 @@ client.on("ready", () => {
 })
 
 client.on("interactionCreate", interaction => {
-        if (!interaction.isCommand()) return
         if (interaction.commandName == "rrpanel3") {
             if (!interaction.member.permissions.has("BAN_MEMBERS")) {
                 return interaction.reply({ content: "Non hai il permesso di utilizzare questo comando", ephemeral: true })
@@ -181,7 +180,7 @@ client.on("interactionCreate", interaction => {
             .setStyle("PRIMARY")
             var buttonremove = new Discord.MessageButton()
             .setEmoji("❌")
-            .setCustomId("remove3")
+            .setCustomId("remove4")
             .setStyle("SECONDARY")
             var row = new Discord.MessageActionRow()
             .addComponents(button1)
@@ -190,9 +189,6 @@ client.on("interactionCreate", interaction => {
             .addComponents(buttonremove)
             interaction.reply({ embeds: [embed], components: [row], })
         }   
-            
-        
-        
         if (interaction.commandName == "ping") {
             var embed = new Discord.MessageEmbed()
             .setTitle("Ping del bot")
@@ -251,12 +247,7 @@ client.on("interactionCreate", interaction => {
                 client.channels.cache.get("968593581310869555").send({embeds: [embed]})
                 
             }
-
-
-
-
-
-        if (interaction.commandName == "poll") {
+            if (interaction.commandName == "poll") {
             if (!interaction.member.permissions.has("ADMINISTRATOR")) {
                 return interaction.reply({ content: "Non hai il permesso di utilizzare questo comando", ephemeral: true })
             }
@@ -268,17 +259,18 @@ client.on("interactionCreate", interaction => {
             var embed = new Discord.MessageEmbed()
                 .setColor("ORANGE")
                 .setTitle("Domanda")
-                .setDescription(title)
-                .setThumbnail("https://cdn.discordapp.com/attachments/959112377687748628/968913031268548668/zenitsu.png")
+                .setDescription("**" + title + "**")
+                .setThumbnail("https://cdn.discordapp.com/attachments/923917959246778378/968496481541709894/DiddoServer.gif")
                 .addField("1️⃣"+ " " + option1 , "** **" )
                 .addField("2️⃣"+ " " + option2 , "** **")
                 .addField("3️⃣"+ " " + option3 , "** **")
                 .addField("4️⃣"+ " " + option4 , "** **")
                 .setFooter({ text: "Il sondaggio è stato avviato!"})
+                .setTimestamp()
                 interaction.reply({ embeds: [embed] })
                 
-                }
-       
+            
+            }
             if (interaction.commandName == "kick") {
             if (!interaction.member.permissions.has("BAN_MEMBERS")) {
                 return interaction.reply({ content: "Non hai il permesso di utilizzare questo comando", ephemeral: true })
@@ -526,7 +518,8 @@ client.on("interactionCreate", interaction => {
         }
 })
 client.on("interactionCreate", interaction => {
-    if (interaction.customId == "remove3") {                           //remove                       //remove
+
+        if (interaction.customId == "remove4") {                           //remove                       //remove
         const maschio = interaction.guild.roles.cache.get("974324592682348574");
         const maschio1 = interaction.guild.roles.cache.get("974324607630843954");
         const maschio2 = interaction.guild.roles.cache.get("974324611401535538");
@@ -537,7 +530,7 @@ client.on("interactionCreate", interaction => {
         .setColor("RED")
         .setTitle("I ruoli sono stati tolti con successo!")
         interaction.reply({ embeds: [embed], ephemeral: true })
-    }
+        }
     if (interaction.customId == "Twichrr") {           //Twichrr           //Twichrr
         const maschio = interaction.guild.roles.cache.get("974324592682348574");
         interaction.member.roles.add(maschio);
@@ -832,16 +825,14 @@ client.on("interactionCreate", interaction => {
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
     if (interaction.customId == "verifypanelcid") {
-        const role = interaction.guild.roles.cache.get("786012564370489344");
-        const role1 = interaction.guild.roles.cache.get("892512109664043069");
-        
+        var role = interaction.guild.roles.cache.get("786012564370489344");
+        var role1 = interaction.guild.roles.cache.get("892512109664043069");
         interaction.member.roles.add(role);
         interaction.member.roles.add(role1);
         var embed = new Discord.MessageEmbed()
         .setColor("GREEN")
         .setTitle("Ti sei verificato con successo!")
         .setDescription("Adesso potrai utilizzare tutte le funzionalità del server! Buona permanenza")
-        
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
     if (interaction.customId == "whybuttonpanel") {
@@ -866,21 +857,22 @@ client.on("interactionCreate", interaction => {
         interaction.member.roles.add(asasasas);
         var embed = new Discord.MessageEmbed()
         .setTitle("L'utente è stato mutato")
-        .addField("Mutato da:", "** **")
+        .addField("Mutato da:", interaction.message.author.toString())
         .addField("Ricordati ti unmutare l'utente dopo un certo tempo, deciso in base alla gravità e al contenuto del link", "** **")
         .setColor("RED")
         interaction.reply({ embeds: [embed]})
     }
     if (interaction.customId == "umutarebutton") {
         const asasasas = interaction.guild.roles.cache.get("877679056810819664");
-        interaction.member.roles.remove(asasasas);
+        interaction.roles.add(asasasas);
         var embed = new Discord.MessageEmbed()
         .setTitle("L'utente è stato smutato")
-        .addField("Smutato da:", "** **")
+        .addField("Smutato da:", interaction.message.author.toString())
         .setColor("GREEN")
         .setTimestamp()
         interaction.reply({ embeds: [embed]})
     }
+
 })
 
 
@@ -900,7 +892,9 @@ trovata = true;
     if(trovata) {
         if (message.member.permissions.has("KICK_MEMBERS")) { 
             return
-        }
+        } 
+    
+    
     var embed = new Discord.MessageEmbed()
     .setTitle("Qualcuno ha mandato un link!")
     .addField("Scegli se mutare o ignorare", message.author.toString())
@@ -921,7 +915,7 @@ trovata = true;
     .addComponents(button1)
     client.channels.cache.get("876420670022643782").send("<@609310540686426141>")
     client.channels.cache.get("876420670022643782").send({embeds: [embed], components: [row]})
-}
+    }
    
    
    
