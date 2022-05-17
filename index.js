@@ -854,31 +854,8 @@ client.on("interactionCreate", interaction => {
         .setTimestamp()
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
-    if (interaction.customId == "Mutabutton") {
-        const asasasas = interaction.guild.roles.cache.get("877679056810819664");
-        interaction.member.roles.add(asasasas);
-        var embed = new Discord.MessageEmbed()
-        .setTitle("L'utente è stato mutato")
-        .addField("Mutato da:", interaction.message.author.toString())
-        .addField("Ricordati ti unmutare l'utente dopo un certo tempo, deciso in base alla gravità e al contenuto del link", "** **")
-        .setColor("RED")
-        interaction.reply({ embeds: [embed]})
-    }
-    if (interaction.customId == "umutarebutton") {
-        const asasasas = interaction.guild.roles.cache.get("877679056810819664");
-        interaction.roles.add(asasasas);
-        var embed = new Discord.MessageEmbed()
-        .setTitle("L'utente è stato smutato")
-        .addField("Smutato da:", interaction.message.author.toString())
-        .setColor("GREEN")
-        .setTimestamp()
-        interaction.reply({ embeds: [embed]})
-    }
     
-
     
-
-
 })
 
 
@@ -896,36 +873,23 @@ trovata = true;
   
     })
     if(trovata) {
-        if (message.member.permissions.has("KICK_MEMBERS")) { 
+        if (message.member.permissions.has("BAN_MEMBERS")) { 
             return
-        } 
+        }
     
     
     var embed = new Discord.MessageEmbed()
     .setTitle("Qualcuno ha mandato un link!")
     .addField("Scegli se mutare o ignorare", message.author.toString())
-    .addField("ATTENZIONE!", "Se decidi di mutare una persona, ricorda, unmutala dopo.")
     .setDescription("Decidi se prendere dei provvedimenti oppure no")
     .setColor("RED")
     .setTimestamp()
-    var button = new Discord.MessageButton()
-    .setLabel("Muta")
-    .setStyle("DANGER")
-    .setCustomId("Mutabutton")
-    var button1 = new Discord.MessageButton()
-    .setLabel("Smuta")
-    .setStyle("SUCCESS")
-    .setCustomId("umutarebutton")
-    var row = new Discord.MessageActionRow()
-    .addComponents(button)
-    .addComponents(button1)
-    client.channels.cache.get("876420670022643782").send("<@609310540686426141>")
-    client.channels.cache.get("876420670022643782").send({embeds: [embed], components: [row]})
-    }
+    client.channels.cache.get("976100149208154162").send("<@&866439038377525279>" + " " + "<@&892872513577689138>")
+    client.channels.cache.get("976100149208154162").send({embeds: [embed]})
+    
+}
    
-   
-   
-    if(message.content === '-join') {
+   if(message.content === '-join') {
         if (!message.member.permissions.has('BAN_MEMBERS')) {
             return message.channel.send("Non puoi eseguire questo comando");
         } 
