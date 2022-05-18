@@ -148,13 +148,51 @@ client.on("ready", () => {
                
             ]
         })
+        guild.commands.create({
+            name: "suggestaccept",
+            description: "Accetta una suggestion da parte di un utente",
+            options: [
+                {
+                    name: "utente",
+                    description: "L'utente che ha richiesto una tale suggestion",
+                    type: "USER",
+                    required: true
+                },
+                {
+                    name: "suggestion",
+                    description: "La suggestion fatta dall'utente",
+                    type: "STRING",
+                    required: true
+                }
+               
+            ]
+        })
     
     })
 
 })
 
 client.on("interactionCreate", interaction => {
-        if (!interaction.isCommand()) return
+        if (interaction.commandName == "suggestaccept") {
+            if (!interaction.member.permissions.has("BAN_MEMBERS")) {
+                return interaction.reply({ content: "Non hai il permesso di utilizzare questo comando", ephemeral: true })
+            } 
+            let approver = interaction.user.tag
+            let utente = interaction.options.getUser("utente")
+            let suggestion = interaction.options.getString("suggestion")
+            var embed = new Discord.MessageEmbed()
+            .setTitle("Nuova suggestion!")
+            .addField("Suggestion offerta da:", utente.toString())
+            .addField("SUGGESTION:", "**" + suggestion + "**")
+            .addField("Votazioni", "Per votare una suggestion utilizzate le emoji qui sotto!")
+            .setThumbnail(utente.displayAvatarURL())
+            .setFooter({ text: "Suggestion approvata da" + " " + approver })
+            .setColor("ORANGE")
+            .setTimestamp()
+            client.channels.cache.get("876420670022643782").send({embeds: [embed]});        
+            interaction.reply({ content: "Hai accettato la suggestion con successo! Ricordati di inserire le emoji!", ephemeral: true })
+        }
+        
         if (interaction.commandName == "rrpanel3") {
             if (!interaction.member.permissions.has("BAN_MEMBERS")) {
                 return interaction.reply({ content: "Non hai il permesso di utilizzare questo comando", ephemeral: true })
@@ -190,9 +228,6 @@ client.on("interactionCreate", interaction => {
             .addComponents(buttonremove)
             interaction.reply({ embeds: [embed], components: [row], })
         }   
-            
-        
-        
         if (interaction.commandName == "ping") {
             var embed = new Discord.MessageEmbed()
             .setTitle("Ping del bot")
@@ -205,27 +240,17 @@ client.on("interactionCreate", interaction => {
         }
             if (interaction.commandName == "suggest") {
             let suggestion = interaction.options.getString("suggestion")
-            
+            let utente = interaction.user.tag
             var embed = new Discord.MessageEmbed()
-            .setTitle(`Nuova suggest da approvare`)
-            .setDescription("Scegli se accettare questa suggest o rifiutarla")
+            .setTitle("Nuova suggest da approvare da parte di" + " " + utente)
             .setColor("ORANGE")
-            .addField("Suggest:", suggestion)
+            .addField("**Introduzione staff**", "Per accettare la suggest, tu staffer che hai l'incarico di accettare o ignorare la suggest avrai diversi compiti da svolgere, niente paura, tutto quello che dovrai fare ti verrà spiegato qui.")
+            .addField("**Accettare la suggest**", "Per accettare la suggestion da parte di un utente dovrai utilizzare un comando specializzato per fare ciò, il comando in questione è **/suggestaccept** , tale comando può essere utilizzato solo dagli staffer come te. il primo passaggio è appunto eseguire questo comando, poi avrai 2 campi uno è l'untente, l'utente è colui che ha chiesto una determinata suggest (colui che compare nel titolo), il secondo campo è la suggest in sè. Dovrai copiare la suggest che trovi nell'ultimo paragrafo di questo messaggio, (rimediare ad alcuni errori di punteggiatura e scrittura fatti dall'utente), e poi semplicemente eseguite il comando. Non è finita qui! Continua a leggere mi raccomando.")
+            .addField("**Passaggio successivo**", "Una volta utilizzato il comando dovrai recarti nella stanza suggestion e aggiungere 2 emoji alla suggestion appena creata e accettata da te, tali emoji sono: ✅ e ❌. Fatto ciò il tuo lavoro è ufficialmente terminato! Grazie per aver letto e compreso la guida")
+            .addField("Suggest:", "**" + suggestion + "**")
             .setTimestamp()
-            var button1 = new Discord.MessageButton()
-            .setLabel("Conferma")
-            .setStyle("SUCCESS")
-            .setCustomId("Confermabutton")
-            var button2 = new Discord.MessageButton()
-            .setLabel("Rifiuta")
-            .setStyle("DANGER")
-            .setCustomId("Rifiutabutton")
-            var row = new Discord.MessageActionRow()
-            .addComponents(button1)
-            .addComponents(button2)
-            client.channels.cache.get("965703200437067816").send({embeds: [embed], components: [row]})
-            client.channels.cache.get("965703200437067816").send("<@609310540686426141>")
-            interaction.reply({ content: "La tua richiesta è stata inoltrata", ephemeral: true})
+            client.channels.cache.get("876420670022643782").send({embeds: [embed]})
+            interaction.reply({ content: "La tua richiesta è stata inoltrata, attendi che uno staffer approvi la tua suggestion", ephemeral: true})
         
         }
             if (interaction.commandName == "timeout") {
@@ -251,12 +276,7 @@ client.on("interactionCreate", interaction => {
                 client.channels.cache.get("968593581310869555").send({embeds: [embed]})
                 
             }
-
-
-
-
-
-        if (interaction.commandName == "poll") {
+            if (interaction.commandName == "poll") {
             if (!interaction.member.permissions.has("ADMINISTRATOR")) {
                 return interaction.reply({ content: "Non hai il permesso di utilizzare questo comando", ephemeral: true })
             }
@@ -280,7 +300,7 @@ client.on("interactionCreate", interaction => {
                 
             
             }
-       
+
             if (interaction.commandName == "kick") {
             if (!interaction.member.permissions.has("BAN_MEMBERS")) {
                 return interaction.reply({ content: "Non hai il permesso di utilizzare questo comando", ephemeral: true })
@@ -529,9 +549,8 @@ client.on("interactionCreate", interaction => {
 })
 client.on("interactionCreate", interaction => {
 
-    if (interaction.customId == "remove4") {                           //remove                       //remove
-    if (interaction.customId == "remove3") {                           //remove                       //remove
 
+        if (interaction.customId == "remove4") {                           //remove                       //remove
         const maschio = interaction.guild.roles.cache.get("974324592682348574");
         const maschio1 = interaction.guild.roles.cache.get("974324607630843954");
         const maschio2 = interaction.guild.roles.cache.get("974324611401535538");
@@ -542,7 +561,7 @@ client.on("interactionCreate", interaction => {
         .setColor("RED")
         .setTitle("I ruoli sono stati tolti con successo!")
         interaction.reply({ embeds: [embed], ephemeral: true })
-    }
+        }
     if (interaction.customId == "Twichrr") {           //Twichrr           //Twichrr
         const maschio = interaction.guild.roles.cache.get("974324592682348574");
         interaction.member.roles.add(maschio);
@@ -837,16 +856,14 @@ client.on("interactionCreate", interaction => {
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
     if (interaction.customId == "verifypanelcid") {
-        const role = interaction.guild.roles.cache.get("786012564370489344");
-        const role1 = interaction.guild.roles.cache.get("892512109664043069");
-        
+        var role = interaction.guild.roles.cache.get("786012564370489344");
+        var role1 = interaction.guild.roles.cache.get("892512109664043069");
         interaction.member.roles.add(role);
         interaction.member.roles.add(role1);
         var embed = new Discord.MessageEmbed()
         .setColor("GREEN")
         .setTitle("Ti sei verificato con successo!")
         .setDescription("Adesso potrai utilizzare tutte le funzionalità del server! Buona permanenza")
-        
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
     if (interaction.customId == "whybuttonpanel") {
@@ -856,37 +873,7 @@ client.on("interactionCreate", interaction => {
         .setDescription("E' necessario verificarti per riuscire ad accedere a tutte le funzionalità del server, questo passaggio serve per prevenire eventuali raid o complicanze da parte degli utenti.")
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
-    if (interaction.customId == "Confermabutton") {
-        
-        var embed = new Discord.MessageEmbed()
-        .setTitle(`Nuova suggestion!`)
-        .setDescription("Che ne pensate di questa suggestion? Reagite a questo messaggio con le 2 emoji per esprimere la vostra opinione!")
-        .setColor("ORANGE")
-        .addField("Suggest:", suggestion)
-        .setTimestamp()
-        interaction.reply({ embeds: [embed], ephemeral: true })
-    }
-    if (interaction.customId == "Mutabutton") {
-        const asasasas = interaction.guild.roles.cache.get("877679056810819664");
-        interaction.member.roles.add(asasasas);
-        var embed = new Discord.MessageEmbed()
-        .setTitle("L'utente è stato mutato")
-        .addField("Mutato da:", interaction.message.author.toString())
-        .addField("Ricordati ti unmutare l'utente dopo un certo tempo, deciso in base alla gravità e al contenuto del link", "** **")
-        .setColor("RED")
-        interaction.reply({ embeds: [embed]})
-    }
-    if (interaction.customId == "umutarebutton") {
-        const asasasas = interaction.guild.roles.cache.get("877679056810819664");
-        interaction.roles.add(asasasas);
-        var embed = new Discord.MessageEmbed()
-        .setTitle("L'utente è stato smutato")
-        .addField("Smutato da:", interaction.message.author.toString())
-        .setColor("GREEN")
-        .setTimestamp()
-        interaction.reply({ embeds: [embed]})
-    }
-}
+    
 })
 
 
@@ -904,36 +891,22 @@ trovata = true;
   
     })
     if(trovata) {
-        if (message.member.permissions.has("KICK_MEMBERS")) { 
+        if (message.member.permissions.has("BAN_MEMBERS")) { 
             return
-        } 
+        }
     
     
     var embed = new Discord.MessageEmbed()
     .setTitle("Qualcuno ha mandato un link!")
     .addField("Scegli se mutare o ignorare", message.author.toString())
-    .addField("ATTENZIONE!", "Se decidi di mutare una persona, ricorda, unmutala dopo.")
     .setDescription("Decidi se prendere dei provvedimenti oppure no")
     .setColor("RED")
     .setTimestamp()
-    var button = new Discord.MessageButton()
-    .setLabel("Muta")
-    .setStyle("DANGER")
-    .setCustomId("Mutabutton")
-    var button1 = new Discord.MessageButton()
-    .setLabel("Smuta")
-    .setStyle("SUCCESS")
-    .setCustomId("umutarebutton")
-    var row = new Discord.MessageActionRow()
-    .addComponents(button)
-    .addComponents(button1)
-    client.channels.cache.get("876420670022643782").send("<@609310540686426141>")
-    client.channels.cache.get("876420670022643782").send({embeds: [embed], components: [row]})
+    client.channels.cache.get("976100149208154162").send({embeds: [embed]})
+    
 }
    
-   
-   
-    if(message.content === '-join') {
+   if(message.content === '-join') {
         if (!message.member.permissions.has('BAN_MEMBERS')) {
             return message.channel.send("Non puoi eseguire questo comando");
         } 
