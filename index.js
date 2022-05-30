@@ -148,12 +148,51 @@ client.on("ready", () => {
                
             ]
         })
+        guild.commands.create({
+            name: "suggestaccept",
+            description: "Accetta una suggestion da parte di un utente",
+            options: [
+                {
+                    name: "utente",
+                    description: "L'utente che ha richiesto una tale suggestion",
+                    type: "USER",
+                    required: true
+                },
+                {
+                    name: "suggestion",
+                    description: "La suggestion fatta dall'utente",
+                    type: "STRING",
+                    required: true
+                }
+               
+            ]
+        })
     
     })
 
 })
 
 client.on("interactionCreate", interaction => {
+        if (interaction.commandName == "suggestaccept") {
+            if (!interaction.member.permissions.has("BAN_MEMBERS")) {
+                return interaction.reply({ content: "Non hai il permesso di utilizzare questo comando", ephemeral: true })
+            } 
+            let approver = interaction.user.tag
+            let utente = interaction.options.getUser("utente")
+            let suggestion = interaction.options.getString("suggestion")
+            var embed = new Discord.MessageEmbed()
+            .setTitle("Nuova suggestion!")
+            .addField("Suggestion offerta da:", utente.toString())
+            .addField("SUGGESTION:", "**" + suggestion + "**")
+            .addField("Votazioni", "Per votare una suggestion utilizzate le emoji qui sotto!")
+            .setThumbnail(utente.displayAvatarURL())
+            .setFooter({ text: "Suggestion approvata da" + " " + approver })
+            .setColor("ORANGE")
+            .setTimestamp()
+            client.channels.cache.get("977205664038420570").send({embeds: [embed]});        
+            interaction.reply({ content: "Hai accettato la suggestion con successo! Ricordati di inserire le emoji!", ephemeral: true })
+        }
+        
         if (interaction.commandName == "rrpanel3") {
             if (!interaction.member.permissions.has("BAN_MEMBERS")) {
                 return interaction.reply({ content: "Non hai il permesso di utilizzare questo comando", ephemeral: true })
@@ -201,27 +240,17 @@ client.on("interactionCreate", interaction => {
         }
             if (interaction.commandName == "suggest") {
             let suggestion = interaction.options.getString("suggestion")
-            
+            let utente = interaction.user.tag
             var embed = new Discord.MessageEmbed()
-            .setTitle(`Nuova suggest da approvare`)
-            .setDescription("Scegli se accettare questa suggest o rifiutarla")
+            .setTitle("Nuova suggest da approvare da parte di" + " " + utente)
             .setColor("ORANGE")
-            .addField("Suggest:", suggestion)
+            .addField("**Introduzione staff**", "Per accettare la suggest, tu staffer che hai l'incarico di accettare o ignorare la suggest avrai diversi compiti da svolgere, niente paura, tutto quello che dovrai fare ti verrà spiegato qui.")
+            .addField("**Accettare la suggest**", "Per accettare la suggestion da parte di un utente dovrai utilizzare un comando specializzato per fare ciò, il comando in questione è **/suggestaccept** , tale comando può essere utilizzato solo dagli staffer come te. il primo passaggio è appunto eseguire questo comando, poi avrai 2 campi uno è l'untente, l'utente è colui che ha chiesto una determinata suggest (colui che compare nel titolo), il secondo campo è la suggest in sè. Dovrai copiare la suggest che trovi nell'ultimo paragrafo di questo messaggio, (rimediare ad alcuni errori di punteggiatura e scrittura fatti dall'utente), e poi semplicemente eseguite il comando. Non è finita qui! Continua a leggere mi raccomando.")
+            .addField("**Passaggio successivo**", "Una volta utilizzato il comando dovrai recarti nella stanza suggestion e aggiungere 2 emoji alla suggestion appena creata e accettata da te, tali emoji sono: ✅ e ❌. Fatto ciò il tuo lavoro è ufficialmente terminato! Grazie per aver letto e compreso la guida")
+            .addField("Suggest:", "**" + suggestion + "**")
             .setTimestamp()
-            var button1 = new Discord.MessageButton()
-            .setLabel("Conferma")
-            .setStyle("SUCCESS")
-            .setCustomId("Confermabutton")
-            var button2 = new Discord.MessageButton()
-            .setLabel("Rifiuta")
-            .setStyle("DANGER")
-            .setCustomId("Rifiutabutton")
-            var row = new Discord.MessageActionRow()
-            .addComponents(button1)
-            .addComponents(button2)
-            client.channels.cache.get("965703200437067816").send({embeds: [embed], components: [row]})
-            client.channels.cache.get("965703200437067816").send("<@609310540686426141>")
-            interaction.reply({ content: "La tua richiesta è stata inoltrata", ephemeral: true})
+            client.channels.cache.get("977205838143950849").send({embeds: [embed]})
+            interaction.reply({ content: "La tua richiesta è stata inoltrata, attendi che uno staffer approvi la tua suggestion", ephemeral: true})
         
         }
             if (interaction.commandName == "timeout") {
@@ -844,17 +873,6 @@ client.on("interactionCreate", interaction => {
         .setDescription("E' necessario verificarti per riuscire ad accedere a tutte le funzionalità del server, questo passaggio serve per prevenire eventuali raid o complicanze da parte degli utenti.")
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
-    if (interaction.customId == "Confermabutton") {
-        
-        var embed = new Discord.MessageEmbed()
-        .setTitle(`Nuova suggestion!`)
-        .setDescription("Che ne pensate di questa suggestion? Reagite a questo messaggio con le 2 emoji per esprimere la vostra opinione!")
-        .setColor("ORANGE")
-        .addField("Suggest:", suggestion)
-        .setTimestamp()
-        interaction.reply({ embeds: [embed], ephemeral: true })
-    }
-    
     
 })
 
@@ -884,12 +902,11 @@ trovata = true;
     .setDescription("Decidi se prendere dei provvedimenti oppure no")
     .setColor("RED")
     .setTimestamp()
-    client.channels.cache.get("976100149208154162").send("<@&866439038377525279>" + " " + "<@&892872513577689138>")
     client.channels.cache.get("976100149208154162").send({embeds: [embed]})
     
 }
    
-   if(message.content === '-join') {
+   if(message.content === '.join') {
         if (!message.member.permissions.has('BAN_MEMBERS')) {
             return message.channel.send("Non puoi eseguire questo comando");
         } 
@@ -899,6 +916,27 @@ trovata = true;
             adapterCreator: message.guild.voiceAdapterCreator
         })
     }
+    if (message.content.startsWith(".clear")) {
+        if (!message.member.permissions.has("ADMINISTRATOR")) {
+            return message.channel.send('Non hai il permesso');
+        }
+        if (!message.guild.me.permissions.has("MANAGE_MESSAGES")) {
+            return message.channel.send('Non ho il permesso');
+        }
+        var count = parseInt(message.content.split(/\s+/)[1]);
+        if (!count) {
+            return message.channel.send("Inserisci un numero valido")
+        }
+        if (count > 100) {
+            return message.channel.send("Non puoi cancellare più di 100 messaggi")
+        }
+        message.channel.bulkDelete(count, true)
+        message.channel.send(count + " messaggi eliminati").then(msg => {
+            setTimeout(() => msg.delete(), 2500)
+        })
+    }
+
+
 })
 const distube = new DisTube(client, {
     youtubeDL: false,
@@ -907,7 +945,7 @@ const distube = new DisTube(client, {
     leaveOnStop: true
 })
 client.on("messageCreate", message => {
-    if (message.content.startsWith("-play")) {
+    if (message.content.startsWith(".play")) {
         const voiceChannel = message.member.voice.channel
         if (!voiceChannel) {
             return message.channel.send("Devi essere in un canale vocale")
@@ -932,7 +970,7 @@ client.on("messageCreate", message => {
         })
     }
 
-    if (message.content == "-pause") {
+    if (message.content == ".pause") {
         const voiceChannel = message.member.voice.channel
         if (!voiceChannel) {
             return message.channel.send("Devi essere in un canale vocale")
@@ -953,7 +991,7 @@ client.on("messageCreate", message => {
         message.channel.send("Song paused")
     }
 
-    if (message.content == "-resume") {
+    if (message.content == ".resume") {
         const voiceChannel = message.member.voice.channel
         if (!voiceChannel) {
             return message.channel.send("Devi essere in un canale vocale")
@@ -974,7 +1012,7 @@ client.on("messageCreate", message => {
         message.channel.send("Song resumed")
     }
 
-    if (message.content == "-queue") {
+    if (message.content == ".queue") {
         const voiceChannel = message.member.voice.channel
         if (!voiceChannel) {
             return message.channel.send("Devi essere in un canale vocale")
@@ -1071,7 +1109,7 @@ client.on("messageCreate", message => {
             })
     }
 
-    if (message.content == "-skip") {
+    if (message.content == ".skip") {
         const voiceChannel = message.member.voice.channel
         if (!voiceChannel) {
             return message.channel.send("Devi essere in un canale vocale")
@@ -1092,7 +1130,7 @@ client.on("messageCreate", message => {
         message.channel.send("Song skipped")
     }
 
-    if (message.content == "-previous") {
+    if (message.content == ".previous") {
         const voiceChannel = message.member.voice.channel
         if (!voiceChannel) {
             return message.channel.send("Devi essere in un canale vocale")
@@ -1113,7 +1151,7 @@ client.on("messageCreate", message => {
         message.channel.send("Previous song")
     }
 
-    if (message.content == "-stop") {
+    if (message.content == ".stop") {
         const voiceChannel = message.member.voice.channel
         if (!voiceChannel) {
             return message.channel.send("Devi essere in un canale vocale")
