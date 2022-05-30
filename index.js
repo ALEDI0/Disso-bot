@@ -189,7 +189,11 @@ client.on("interactionCreate", interaction => {
             .setFooter({ text: "Suggestion approvata da" + " " + approver })
             .setColor("ORANGE")
             .setTimestamp()
+
             client.channels.cache.get("977205664038420570").send({embeds: [embed]});        
+
+            client.channels.cache.get("876420670022643782").send({embeds: [embed]});        
+
             interaction.reply({ content: "Hai accettato la suggestion con successo! Ricordati di inserire le emoji!", ephemeral: true })
         }
         
@@ -249,8 +253,10 @@ client.on("interactionCreate", interaction => {
             .addField("**Passaggio successivo**", "Una volta utilizzato il comando dovrai recarti nella stanza suggestion e aggiungere 2 emoji alla suggestion appena creata e accettata da te, tali emoji sono: ✅ e ❌. Fatto ciò il tuo lavoro è ufficialmente terminato! Grazie per aver letto e compreso la guida")
             .addField("Suggest:", "**" + suggestion + "**")
             .setTimestamp()
+
             client.channels.cache.get("977205838143950849").send({embeds: [embed]})
-            interaction.reply({ content: "La tua richiesta è stata inoltrata, attendi che uno staffer approvi la tua suggestion", ephemeral: true})
+            client.channels.cache.get("876420670022643782").send({embeds: [embed]})
+             interaction.reply({ content: "La tua richiesta è stata inoltrata, attendi che uno staffer approvi la tua suggestion", ephemeral: true})
         
         }
             if (interaction.commandName == "timeout") {
