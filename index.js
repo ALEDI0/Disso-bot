@@ -190,7 +190,6 @@ client.on("ready", () => {
     })
 
 })
-
 client.on("interactionCreate", interaction => {
      if (interaction.commandName == "ship") {
         let utente = interaction.options.getUser("utente")
