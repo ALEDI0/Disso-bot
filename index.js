@@ -26,8 +26,12 @@ client.on("guildMemberAdd", member => {
 
 client.on("ready", () => {
     client.user.setActivity({ type: "WATCHING", name: `Dissociatore` })
+    console.log("Preparandosi mentalmente....");
+    console.log("Attacco DDoS in corso...");
+    console.log("Grabbing ip.....");
+    console.log("nf!destroy");
+    console.log("In tempo per workare");
     console.log("ONLINE");
-
     client.guilds.cache.forEach(guild => {
         guild.commands.create({
             name: "verifypanel",
@@ -70,6 +74,25 @@ client.on("ready", () => {
         guild.commands.create({
             name: "ping",
             description: "Guarda il ping del bot"
+        })
+        guild.commands.create({
+            name: "ship",
+            description: "Shippa un utente con chi vuoi",
+            options: [
+            {
+                name: "utente",
+                description: "Una delle persone che vuoi shippare",
+                type: "USER",
+                required: true 
+            },
+            {
+                name: "utente2",
+                description: "Una delle persone che vuoi shippare",
+                type: "USER",
+                required: true 
+            },
+        
+        ]
         })
             guild.commands.create({
             name: "poll",
@@ -171,8 +194,122 @@ client.on("ready", () => {
     })
 
 })
-
 client.on("interactionCreate", interaction => {
+     if (interaction.commandName == "ship") {
+        let utente = interaction.options.getUser("utente")
+        let utente2 = interaction.options.getUser("utente2")
+        let utentename = utente.username
+        let utentename2 = utente2.username
+        var embed = new Discord.MessageEmbed()
+        .setTitle(utentename + " & " + utentename2 + " 💖")
+        .addField("Si amano allo", "0%")
+        .setImage("https://cdn.discordapp.com/attachments/959112377687748628/981176300108648518/DeliriousAridAnemone-size_restricted.gif")
+        .setColor("RED")
+        var embed1 = new Discord.MessageEmbed()
+        .setTitle(utentename + " & " + utentename2 + " 💖")
+        .addField("Si amano al", "10%")
+        .setImage("https://cdn.discordapp.com/attachments/959112377687748628/981176300108648518/DeliriousAridAnemone-size_restricted.gif")
+        .setColor("RED")
+        var embed2 = new Discord.MessageEmbed()
+        .setTitle(utentename + " & " + utentename2 + " 💖")
+        .addField("Si amano al", "17%")
+        .setImage("https://cdn.discordapp.com/attachments/959112377687748628/981176300108648518/DeliriousAridAnemone-size_restricted.gif")
+        .setColor("RED")
+        var embed3 = new Discord.MessageEmbed()
+        .setTitle(utentename + " & " + utentename2 + " 💖")
+        .addField("Si amano al", "21%")
+        .setImage("https://cdn.discordapp.com/attachments/959112377687748628/981176300108648518/DeliriousAridAnemone-size_restricted.gif")
+        .setColor("RED")
+        var embed4 = new Discord.MessageEmbed()
+        .setTitle(utentename + " & " + utentename2 + " 💖")
+        .addField("Si amano al", "29%")
+        .setImage("https://cdn.discordapp.com/attachments/959112377687748628/981175430734286908/C9M7.gif")
+        .setColor("RED")
+        var embed5 = new Discord.MessageEmbed()
+        .setTitle(utentename + " & " + utentename2 + " 💖")
+        .addField("Si amano al", "32%")
+        .setImage("https://cdn.discordapp.com/attachments/959112377687748628/981175430734286908/C9M7.gif")
+        .setColor("RED")
+        var embed6 = new Discord.MessageEmbed()
+        .setTitle(utentename + " & " + utentename2 + " 💖")
+        .addField("Si amano al", "38%")
+        .setImage("https://cdn.discordapp.com/attachments/959112377687748628/981175430734286908/C9M7.gif")
+        .setColor("RED")
+        var embed7 = new Discord.MessageEmbed()
+        .setTitle(utentename + " & " + utentename2 + " 💖")
+        .addField("Si amano al", "41%")
+        .setImage("https://cdn.discordapp.com/attachments/959112377687748628/981175430734286908/C9M7.gif")
+        .setColor("RED")
+        var embed8 = new Discord.MessageEmbed()
+        .setTitle(utentename + " & " + utentename2 + " 💖")
+        .addField("Si amano al", "46%")
+        .setImage("https://cdn.discordapp.com/attachments/959112377687748628/981175430734286908/C9M7.gif")
+        .setColor("RED")
+        var embed9 = new Discord.MessageEmbed()
+        .setTitle(utentename + " & " + utentename2 + " 💖")
+        .addField("Si amano al", "50%")
+        .setImage("https://cdn.discordapp.com/attachments/959112377687748628/981175035840569424/darling-in-the-franxx-zhiro.gif")
+        .setColor("RED")
+        var embed10 = new Discord.MessageEmbed()
+        .setTitle(utentename + " & " + utentename2 + " 💖")
+        .addField("Si amano al", "57%")
+        .setImage("https://cdn.discordapp.com/attachments/959112377687748628/981175035840569424/darling-in-the-franxx-zhiro.gif")
+        .setColor("RED")
+        var embed11 = new Discord.MessageEmbed()
+        .setTitle(utentename + " & " + utentename2 + " 💖")
+        .addField("Si amano al", "60%")
+        .setImage("https://cdn.discordapp.com/attachments/959112377687748628/981175035840569424/darling-in-the-franxx-zhiro.gif")
+        .setColor("RED")
+        var embed12 = new Discord.MessageEmbed()
+        .setTitle(utentename + " & " + utentename2 + " 💖")
+        .addField("Si amano al", "69%")
+        .setImage("https://cdn.discordapp.com/attachments/959112377687748628/981175035840569424/darling-in-the-franxx-zhiro.gif")
+        .setColor("RED")
+        var embed13 = new Discord.MessageEmbed()
+        .setTitle(utentename + " & " + utentename2 + " 💖")
+        .addField("Si amano al", "71%")
+        .setImage("https://cdn.discordapp.com/attachments/959112377687748628/981175035840569424/darling-in-the-franxx-zhiro.gif")
+        .setColor("RED")
+        var embed14 = new Discord.MessageEmbed()
+        .setTitle(utentename + " & " + utentename2 + " 💖")
+        .addField("Si amano al", "75%")
+        .setImage("https://cdn.discordapp.com/attachments/959112377687748628/981175035840569424/darling-in-the-franxx-zhiro.gif")
+        .setColor("RED")
+        var embed15 = new Discord.MessageEmbed()
+        .setTitle(utentename + " & " + utentename2 + " 💖")
+        .addField("Si amano al", "83%")
+        .setImage("https://cdn.discordapp.com/attachments/959112377687748628/981174833335398420/anime-love-29.gif")
+        .setColor("RED")
+        var embed16 = new Discord.MessageEmbed()
+        .setTitle(utentename + " & " + utentename2 + " 💖")
+        .addField("Si amano al", "85%")
+        .setImage("https://cdn.discordapp.com/attachments/959112377687748628/981174833335398420/anime-love-29.gif")
+        .setColor("RED")
+        var embed17 = new Discord.MessageEmbed()
+        .setTitle(utentename + " & " + utentename2 + " 💖")
+        .addField("Si amano al", "89%")
+        .setImage("https://cdn.discordapp.com/attachments/959112377687748628/981174833335398420/anime-love-29.gif")
+        .setColor("RED")
+        var embed18 = new Discord.MessageEmbed()
+        .setTitle(utentename + " & " + utentename2 + " 💖")
+        .addField("Si amano al", "94%")
+        .setImage("https://cdn.discordapp.com/attachments/959112377687748628/981174833335398420/anime-love-29.gif")
+        .setColor("RED")
+        var embed19 = new Discord.MessageEmbed()
+        .setTitle(utentename + " & " + utentename2 + " 💖")
+        .addField("Si amano al", "99%")
+        .setImage("https://cdn.discordapp.com/attachments/959112377687748628/981174833335398420/anime-love-29.gif")
+        .setColor("RED")
+        var embed20 = new Discord.MessageEmbed()
+        .setTitle(utentename + " & " + utentename2 + " 💖")
+        .addField("Si amano al", "100%")
+        .setImage("https://cdn.discordapp.com/attachments/959112377687748628/981174833335398420/anime-love-29.gif")
+        .setColor("RED")
+        var messaggi = [embed,embed1,embed2,embed3,embed4,embed5,embed6,embed7,embed8,embed9,embed10,embed11,embed12,embed13,embed14,embed15,embed16,embed17,embed18,embed19,embed20]
+        interaction.reply({ embeds: [messaggi[Math.floor(Math.random() * messaggi.length)]]});
+        
+    }
+    
         if (interaction.commandName == "suggestaccept") {
             if (!interaction.member.permissions.has("BAN_MEMBERS")) {
                 return interaction.reply({ content: "Non hai il permesso di utilizzare questo comando", ephemeral: true })
@@ -189,7 +326,9 @@ client.on("interactionCreate", interaction => {
             .setFooter({ text: "Suggestion approvata da" + " " + approver })
             .setColor("ORANGE")
             .setTimestamp()
-            client.channels.cache.get("876420670022643782").send({embeds: [embed]});        
+
+            client.channels.cache.get("977205664038420570").send({embeds: [embed]});        
+                   
             interaction.reply({ content: "Hai accettato la suggestion con successo! Ricordati di inserire le emoji!", ephemeral: true })
         }
         
@@ -249,8 +388,10 @@ client.on("interactionCreate", interaction => {
             .addField("**Passaggio successivo**", "Una volta utilizzato il comando dovrai recarti nella stanza suggestion e aggiungere 2 emoji alla suggestion appena creata e accettata da te, tali emoji sono: ✅ e ❌. Fatto ciò il tuo lavoro è ufficialmente terminato! Grazie per aver letto e compreso la guida")
             .addField("Suggest:", "**" + suggestion + "**")
             .setTimestamp()
-            client.channels.cache.get("876420670022643782").send({embeds: [embed]})
-            interaction.reply({ content: "La tua richiesta è stata inoltrata, attendi che uno staffer approvi la tua suggestion", ephemeral: true})
+
+            client.channels.cache.get("977205838143950849").send({embeds: [embed]})
+           
+             interaction.reply({ content: "La tua richiesta è stata inoltrata, attendi che uno staffer approvi la tua suggestion", ephemeral: true})
         
         }
             if (interaction.commandName == "timeout") {
@@ -277,28 +418,27 @@ client.on("interactionCreate", interaction => {
                 
             }
             if (interaction.commandName == "poll") {
-            if (!interaction.member.permissions.has("ADMINISTRATOR")) {
-                return interaction.reply({ content: "Non hai il permesso di utilizzare questo comando", ephemeral: true })
-            }
-            var option1 = interaction.options.getString("option1")
-            var option2 = interaction.options.getString("option2")
-            var option3 = interaction.options.getString("option3")
-            var option4 = interaction.options.getString("option4")
-            var title = interaction.options.getString("title")
-            var embed = new Discord.MessageEmbed()
-                .setColor("ORANGE")
-                .setTitle("Domanda")
-                .setDescription("**" + title + "**")
-                .setThumbnail("https://cdn.discordapp.com/attachments/923917959246778378/968496481541709894/DiddoServer.gif")
-                .addField("1️⃣"+ " " + option1 , "** **" )
-                .addField("2️⃣"+ " " + option2 , "** **")
-                .addField("3️⃣"+ " " + option3 , "** **")
-                .addField("4️⃣"+ " " + option4 , "** **")
-                .setFooter({ text: "Il sondaggio è stato avviato!"})
-                .setTimestamp()
-                interaction.reply({ embeds: [embed] })
-                
-            
+                if (!interaction.member.permissions.has("ADMINISTRATOR")) {
+                    return interaction.reply({ content: "Non hai il permesso di utilizzare questo comando", ephemeral: true })
+                }
+                var option1 = interaction.options.getString("option1")
+                var option2 = interaction.options.getString("option2")
+                var option3 = interaction.options.getString("option3")
+                var option4 = interaction.options.getString("option4")
+                var title = interaction.options.getString("title")
+                var embed = new Discord.MessageEmbed()
+                    .setColor("ORANGE")
+                    .setTitle("Domanda")
+                    .setDescription("**" + title + "**")
+                    .setThumbnail("https://cdn.discordapp.com/attachments/923917959246778378/968496481541709894/DiddoServer.gif")
+                    .addField("1️⃣"+ " " + option1 , "** **" )
+                    .addField("2️⃣"+ " " + option2 , "** **")
+                    .addField("3️⃣"+ " " + option3 , "** **")
+                    .addField("4️⃣"+ " " + option4 , "** **")
+                    .setFooter({ text: "Il sondaggio è stato avviato!"})
+                    .setTimestamp()
+                    interaction.reply({ embeds: [embed] })
+                    
             }
 
             if (interaction.commandName == "kick") {
@@ -395,8 +535,6 @@ client.on("interactionCreate", interaction => {
             interaction.reply({ embeds: [embed], components: [row, row1, row3], })
     
     }
-    
-    
     
     
         if (interaction.commandName == "rrpanel") {
@@ -817,8 +955,6 @@ client.on("interactionCreate", interaction => {
     
 
     
-
-    
     if (interaction.customId == "remove2") {                           //remove                       //remove
         const maschio = interaction.guild.roles.cache.get("967858978312831077");
         const maschio1 = interaction.guild.roles.cache.get("967858953960701983");
@@ -906,7 +1042,14 @@ trovata = true;
     
 }
    
-   if(message.content === '-join') {
+
+
+
+
+
+
+
+if(message.content === '.join') {
         if (!message.member.permissions.has('BAN_MEMBERS')) {
             return message.channel.send("Non puoi eseguire questo comando");
         } 
@@ -916,6 +1059,27 @@ trovata = true;
             adapterCreator: message.guild.voiceAdapterCreator
         })
     }
+    if (message.content.startsWith(".clear")) {
+        if (!message.member.permissions.has("ADMINISTRATOR")) {
+            return message.channel.send('Non hai il permesso');
+        }
+        if (!message.guild.me.permissions.has("MANAGE_MESSAGES")) {
+            return message.channel.send('Non ho il permesso');
+        }
+        var count = parseInt(message.content.split(/\s+/)[1]);
+        if (!count) {
+            return message.channel.send("Inserisci un numero valido")
+        }
+        if (count > 100) {
+            return message.channel.send("Non puoi cancellare più di 100 messaggi")
+        }
+        message.channel.bulkDelete(count, true)
+        message.channel.send(count + " messaggi eliminati").then(msg => {
+            setTimeout(() => msg.delete(), 2500)
+        })
+    }
+
+
 })
 const distube = new DisTube(client, {
     youtubeDL: false,
@@ -924,7 +1088,7 @@ const distube = new DisTube(client, {
     leaveOnStop: true
 })
 client.on("messageCreate", message => {
-    if (message.content.startsWith("-play")) {
+     if (message.content.startsWith(".play")) {
         const voiceChannel = message.member.voice.channel
         if (!voiceChannel) {
             return message.channel.send("Devi essere in un canale vocale")
@@ -949,7 +1113,7 @@ client.on("messageCreate", message => {
         })
     }
 
-    if (message.content == "-pause") {
+    if (message.content == ".pause") {
         const voiceChannel = message.member.voice.channel
         if (!voiceChannel) {
             return message.channel.send("Devi essere in un canale vocale")
@@ -970,7 +1134,7 @@ client.on("messageCreate", message => {
         message.channel.send("Song paused")
     }
 
-    if (message.content == "-resume") {
+    if (message.content == ".resume") {
         const voiceChannel = message.member.voice.channel
         if (!voiceChannel) {
             return message.channel.send("Devi essere in un canale vocale")
@@ -991,7 +1155,7 @@ client.on("messageCreate", message => {
         message.channel.send("Song resumed")
     }
 
-    if (message.content == "-queue") {
+    if (message.content == ".queue") {
         const voiceChannel = message.member.voice.channel
         if (!voiceChannel) {
             return message.channel.send("Devi essere in un canale vocale")
@@ -1088,7 +1252,7 @@ client.on("messageCreate", message => {
             })
     }
 
-    if (message.content == "-skip") {
+    if (message.content == ".skip") {
         const voiceChannel = message.member.voice.channel
         if (!voiceChannel) {
             return message.channel.send("Devi essere in un canale vocale")
@@ -1109,7 +1273,7 @@ client.on("messageCreate", message => {
         message.channel.send("Song skipped")
     }
 
-    if (message.content == "-previous") {
+    if (message.content == ".previous") {
         const voiceChannel = message.member.voice.channel
         if (!voiceChannel) {
             return message.channel.send("Devi essere in un canale vocale")
@@ -1130,7 +1294,7 @@ client.on("messageCreate", message => {
         message.channel.send("Previous song")
     }
 
-    if (message.content == "-stop") {
+    if (message.content == ".stop") {
         const voiceChannel = message.member.voice.channel
         if (!voiceChannel) {
             return message.channel.send("Devi essere in un canale vocale")
@@ -1174,3 +1338,4 @@ distube.on("playSong", (queue, song) => {
 distube.on("searchNoResult", (message, query) => {
     message.channel.send("Canzone non trovata")
 })
+
