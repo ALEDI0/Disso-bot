@@ -26,12 +26,8 @@ client.on("guildMemberAdd", member => {
 
 client.on("ready", () => {
     client.user.setActivity({ type: "WATCHING", name: `Dissociatore` })
-    console.log("Preparandosi mentalmente....");
-    console.log("Attacco DDoS in corso...");
-    console.log("Grabbing ip.....");
-    console.log("nf!destroy");
-    console.log("In tempo per workare");
     console.log("ONLINE");
+
     client.guilds.cache.forEach(guild => {
         guild.commands.create({
             name: "verifypanel",
@@ -212,97 +208,97 @@ client.on("interactionCreate", interaction => {
         .setColor("RED")
         var embed2 = new Discord.MessageEmbed()
         .setTitle(utentename + " & " + utentename2 + " 💖")
-        .addField("Si amano al", "17%")
+        .addField("Si amano allo", "17%")
         .setImage("https://cdn.discordapp.com/attachments/959112377687748628/981176300108648518/DeliriousAridAnemone-size_restricted.gif")
         .setColor("RED")
         var embed3 = new Discord.MessageEmbed()
         .setTitle(utentename + " & " + utentename2 + " 💖")
-        .addField("Si amano al", "21%")
+        .addField("Si amano allo", "21%")
         .setImage("https://cdn.discordapp.com/attachments/959112377687748628/981176300108648518/DeliriousAridAnemone-size_restricted.gif")
         .setColor("RED")
         var embed4 = new Discord.MessageEmbed()
         .setTitle(utentename + " & " + utentename2 + " 💖")
-        .addField("Si amano al", "29%")
+        .addField("Si amano allo", "29%")
         .setImage("https://cdn.discordapp.com/attachments/959112377687748628/981175430734286908/C9M7.gif")
         .setColor("RED")
         var embed5 = new Discord.MessageEmbed()
         .setTitle(utentename + " & " + utentename2 + " 💖")
-        .addField("Si amano al", "32%")
+        .addField("Si amano allo", "33%")
         .setImage("https://cdn.discordapp.com/attachments/959112377687748628/981175430734286908/C9M7.gif")
         .setColor("RED")
         var embed6 = new Discord.MessageEmbed()
         .setTitle(utentename + " & " + utentename2 + " 💖")
-        .addField("Si amano al", "38%")
+        .addField("Si amano allo", "36%")
         .setImage("https://cdn.discordapp.com/attachments/959112377687748628/981175430734286908/C9M7.gif")
         .setColor("RED")
         var embed7 = new Discord.MessageEmbed()
         .setTitle(utentename + " & " + utentename2 + " 💖")
-        .addField("Si amano al", "41%")
+        .addField("Si amano allo", "45%")
         .setImage("https://cdn.discordapp.com/attachments/959112377687748628/981175430734286908/C9M7.gif")
         .setColor("RED")
         var embed8 = new Discord.MessageEmbed()
         .setTitle(utentename + " & " + utentename2 + " 💖")
-        .addField("Si amano al", "46%")
+        .addField("Si amano allo", "41%")
         .setImage("https://cdn.discordapp.com/attachments/959112377687748628/981175430734286908/C9M7.gif")
         .setColor("RED")
         var embed9 = new Discord.MessageEmbed()
         .setTitle(utentename + " & " + utentename2 + " 💖")
-        .addField("Si amano al", "50%")
+        .addField("Si amano allo", "50%")
         .setImage("https://cdn.discordapp.com/attachments/959112377687748628/981175035840569424/darling-in-the-franxx-zhiro.gif")
         .setColor("RED")
         var embed10 = new Discord.MessageEmbed()
         .setTitle(utentename + " & " + utentename2 + " 💖")
-        .addField("Si amano al", "57%")
+        .addField("Si amano allo", "57%")
         .setImage("https://cdn.discordapp.com/attachments/959112377687748628/981175035840569424/darling-in-the-franxx-zhiro.gif")
         .setColor("RED")
         var embed11 = new Discord.MessageEmbed()
         .setTitle(utentename + " & " + utentename2 + " 💖")
-        .addField("Si amano al", "60%")
+        .addField("Si amano allo", "60%")
         .setImage("https://cdn.discordapp.com/attachments/959112377687748628/981175035840569424/darling-in-the-franxx-zhiro.gif")
         .setColor("RED")
         var embed12 = new Discord.MessageEmbed()
         .setTitle(utentename + " & " + utentename2 + " 💖")
-        .addField("Si amano al", "69%")
+        .addField("Si amano allo", "69%")
         .setImage("https://cdn.discordapp.com/attachments/959112377687748628/981175035840569424/darling-in-the-franxx-zhiro.gif")
         .setColor("RED")
         var embed13 = new Discord.MessageEmbed()
         .setTitle(utentename + " & " + utentename2 + " 💖")
-        .addField("Si amano al", "71%")
+        .addField("Si amano allo", "71%")
         .setImage("https://cdn.discordapp.com/attachments/959112377687748628/981175035840569424/darling-in-the-franxx-zhiro.gif")
         .setColor("RED")
         var embed14 = new Discord.MessageEmbed()
         .setTitle(utentename + " & " + utentename2 + " 💖")
-        .addField("Si amano al", "75%")
+        .addField("Si amano allo", "75%")
         .setImage("https://cdn.discordapp.com/attachments/959112377687748628/981175035840569424/darling-in-the-franxx-zhiro.gif")
         .setColor("RED")
         var embed15 = new Discord.MessageEmbed()
         .setTitle(utentename + " & " + utentename2 + " 💖")
-        .addField("Si amano al", "83%")
+        .addField("Si amano allo", "83%")
         .setImage("https://cdn.discordapp.com/attachments/959112377687748628/981174833335398420/anime-love-29.gif")
         .setColor("RED")
         var embed16 = new Discord.MessageEmbed()
         .setTitle(utentename + " & " + utentename2 + " 💖")
-        .addField("Si amano al", "85%")
+        .addField("Si amano allo", "85%")
         .setImage("https://cdn.discordapp.com/attachments/959112377687748628/981174833335398420/anime-love-29.gif")
         .setColor("RED")
         var embed17 = new Discord.MessageEmbed()
         .setTitle(utentename + " & " + utentename2 + " 💖")
-        .addField("Si amano al", "89%")
+        .addField("Si amano allo", "89%")
         .setImage("https://cdn.discordapp.com/attachments/959112377687748628/981174833335398420/anime-love-29.gif")
         .setColor("RED")
         var embed18 = new Discord.MessageEmbed()
         .setTitle(utentename + " & " + utentename2 + " 💖")
-        .addField("Si amano al", "94%")
+        .addField("Si amano allo", "94%")
         .setImage("https://cdn.discordapp.com/attachments/959112377687748628/981174833335398420/anime-love-29.gif")
         .setColor("RED")
         var embed19 = new Discord.MessageEmbed()
         .setTitle(utentename + " & " + utentename2 + " 💖")
-        .addField("Si amano al", "99%")
+        .addField("Si amano allo", "99%")
         .setImage("https://cdn.discordapp.com/attachments/959112377687748628/981174833335398420/anime-love-29.gif")
         .setColor("RED")
         var embed20 = new Discord.MessageEmbed()
         .setTitle(utentename + " & " + utentename2 + " 💖")
-        .addField("Si amano al", "100%")
+        .addField("Si amano allo", "100%")
         .setImage("https://cdn.discordapp.com/attachments/959112377687748628/981174833335398420/anime-love-29.gif")
         .setColor("RED")
         var messaggi = [embed,embed1,embed2,embed3,embed4,embed5,embed6,embed7,embed8,embed9,embed10,embed11,embed12,embed13,embed14,embed15,embed16,embed17,embed18,embed19,embed20]
@@ -328,7 +324,7 @@ client.on("interactionCreate", interaction => {
             .setTimestamp()
 
             client.channels.cache.get("977205664038420570").send({embeds: [embed]});        
-                   
+                
             interaction.reply({ content: "Hai accettato la suggestion con successo! Ricordati di inserire le emoji!", ephemeral: true })
         }
         
@@ -390,7 +386,7 @@ client.on("interactionCreate", interaction => {
             .setTimestamp()
 
             client.channels.cache.get("977205838143950849").send({embeds: [embed]})
-           
+            
              interaction.reply({ content: "La tua richiesta è stata inoltrata, attendi che uno staffer approvi la tua suggestion", ephemeral: true})
         
         }
@@ -418,27 +414,28 @@ client.on("interactionCreate", interaction => {
                 
             }
             if (interaction.commandName == "poll") {
-                if (!interaction.member.permissions.has("ADMINISTRATOR")) {
-                    return interaction.reply({ content: "Non hai il permesso di utilizzare questo comando", ephemeral: true })
-                }
-                var option1 = interaction.options.getString("option1")
-                var option2 = interaction.options.getString("option2")
-                var option3 = interaction.options.getString("option3")
-                var option4 = interaction.options.getString("option4")
-                var title = interaction.options.getString("title")
-                var embed = new Discord.MessageEmbed()
-                    .setColor("ORANGE")
-                    .setTitle("Domanda")
-                    .setDescription("**" + title + "**")
-                    .setThumbnail("https://cdn.discordapp.com/attachments/923917959246778378/968496481541709894/DiddoServer.gif")
-                    .addField("1️⃣"+ " " + option1 , "** **" )
-                    .addField("2️⃣"+ " " + option2 , "** **")
-                    .addField("3️⃣"+ " " + option3 , "** **")
-                    .addField("4️⃣"+ " " + option4 , "** **")
-                    .setFooter({ text: "Il sondaggio è stato avviato!"})
-                    .setTimestamp()
-                    interaction.reply({ embeds: [embed] })
-                    
+            if (!interaction.member.permissions.has("ADMINISTRATOR")) {
+                return interaction.reply({ content: "Non hai il permesso di utilizzare questo comando", ephemeral: true })
+            }
+            var option1 = interaction.options.getString("option1")
+            var option2 = interaction.options.getString("option2")
+            var option3 = interaction.options.getString("option3")
+            var option4 = interaction.options.getString("option4")
+            var title = interaction.options.getString("title")
+            var embed = new Discord.MessageEmbed()
+                .setColor("ORANGE")
+                .setTitle("Domanda")
+                .setDescription("**" + title + "**")
+                .setThumbnail("https://cdn.discordapp.com/attachments/923917959246778378/968496481541709894/DiddoServer.gif")
+                .addField("1️⃣"+ " " + option1 , "** **" )
+                .addField("2️⃣"+ " " + option2 , "** **")
+                .addField("3️⃣"+ " " + option3 , "** **")
+                .addField("4️⃣"+ " " + option4 , "** **")
+                .setFooter({ text: "Il sondaggio è stato avviato!"})
+                .setTimestamp()
+                interaction.reply({ embeds: [embed] })
+                
+            
             }
 
             if (interaction.commandName == "kick") {
@@ -1112,8 +1109,9 @@ client.on("messageCreate", message => {
             message: message
         })
     }
-
-    if (message.content == ".pause") {
+    
+    
+        if (message.content == ".pause") {
         const voiceChannel = message.member.voice.channel
         if (!voiceChannel) {
             return message.channel.send("Devi essere in un canale vocale")
