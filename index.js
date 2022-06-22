@@ -1,4 +1,4 @@
-const { Message, VoiceRegion, MessageActionRow } = require('discord.js');
+const { Message, VoiceRegion, MessageActionRow, UserContextMenuInteraction } = require('discord.js');
 const { joinVoiceChannel } = require('@discordjs/voice');
 const { SpotifyPlugin } = require("@distube/spotify")
 const { DisTube } = require("distube")
@@ -7,7 +7,7 @@ const client = new Discord.Client({
     intents: ["GUILDS", "GUILD_MEMBERS", "GUILD_MESSAGES", "GUILD_INTEGRATIONS", "GUILD_VOICE_STATES"] 
 })
 
-client.login("OTYxNjQ1NDYzMDUwODA5NDY1.Yk8AIA.XQKzJngww_bohN4egvyR78U_NaI");
+client.login("Il tuo token segreto");
 
 
 client.on("guildMemberAdd", member => {
@@ -48,6 +48,19 @@ client.on("ready", () => {
         guild.commands.create({
             name: "rrpanel3",
             description: "Pannello ping rr"
+        })
+        guild.commands.create({
+            name: "fverify",
+            description: "Verifica un utente manualmente",
+            options: [
+                {
+                    name: "user",
+                    description: "Utente da verificare",
+                    type: "USER",
+                    required: true
+                }
+            ]
+        
         })
         guild.commands.create({
             name: "kick",
@@ -125,9 +138,6 @@ client.on("ready", () => {
                     required: false
                 }   
             
-            
-            
-            
             ]
         })
         guild.commands.create({
@@ -191,7 +201,24 @@ client.on("ready", () => {
 
 })
 client.on("interactionCreate", interaction => {
-     if (interaction.commandName == "ship") {
+    if (interaction.commandName == "fverify") {
+    let target = interaction.options.getUser("user")
+    if (!target){
+        return interaction.reply({ content: "Seleziona un utente", ephemeral: true })
+    }
+    if (!interaction.member.permissions.has("BAN_MEMBERS")) {
+        return interaction.reply({ content: "Non hai il permesso di utilizzare questo comando", ephemeral: true })
+    } 
+    
+    const mutedRole = interaction.guild.roles.cache.get('786012564370489344');
+    const mutedRole1 = interaction.guild.roles.cache.get('892512109664043069');
+    target.roles.add(mutedRole);
+    target.roles.add(mutedRole1);
+    interaction.reply({ content: "L'utente è stato verificato", ephemeral: true})
+  
+}
+        
+        if (interaction.commandName == "ship") {
         let utente = interaction.options.getUser("utente")
         let utente2 = interaction.options.getUser("utente2")
         let utentename = utente.username
